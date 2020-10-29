@@ -13,6 +13,7 @@ public class Calculator {
         System.out.println("Kérem az első számot: ");
         int number1 = scanner.nextInt();
         scanner.nextLine();
+        System.out.println();
 
         System.out.println("Kérem a második számot: ");
         int number2 = scanner.nextInt();
@@ -20,6 +21,7 @@ public class Calculator {
         int osszeg = number1 + number2;
 
         System.out.println();
-        System.out.println("A " + number1 + " és a " + number2 + " összege: " + osszeg);
+        System.out.println("A " + number1 + " és a " + number2 + " összege:");
+        System.out.println(number1 + " + " + number2 + " = " + osszeg);
     }
 }
