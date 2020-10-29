@@ -34,7 +34,5 @@ public class Client {
         System.out.println("Születési éve: " + client.year);
         System.out.println("Címe: " + client.address);
 
-
     }
-
 }
