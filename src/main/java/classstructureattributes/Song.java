@@ -32,11 +32,5 @@ class Music {
         System.out.println();
         System.out.println(favoriteSong.band + " - " + favoriteSong.title + " (" + favoriteSong.length + " perc)" );
 
-
-
-
-
     }
-
-
 }
