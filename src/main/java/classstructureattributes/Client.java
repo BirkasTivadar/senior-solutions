@@ -2,7 +2,7 @@ package classstructureattributes;
 
 import java.util.Scanner;
 
-class Client {
+public class Client {
     String name;
     int year;
     String address;
@@ -10,7 +10,7 @@ class Client {
 
  class ClientMain {
 
-    public static void mabiin(String[] args) {
+    public static void main(String[] args) {
 
         Client client = new Client();
 
