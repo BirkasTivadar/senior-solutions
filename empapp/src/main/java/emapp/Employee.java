@@ -1,5 +1,7 @@
 package emapp;
 
+import java.util.Objects;
+
 public class Employee {
 
     private String name;
@@ -29,5 +31,18 @@ public class Employee {
 
     public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return yearOfBirth == employee.yearOfBirth && Objects.equals(name, employee.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, yearOfBirth);
     }
 }
