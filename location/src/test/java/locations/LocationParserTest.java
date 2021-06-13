@@ -1,5 +1,6 @@
 package locations;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LocationParserTest {
 
     @Test
+    @DisplayName("Test parsing datas of location separate with comma")
     void testParse() {
         String text = "Budapest,47.497912,19.040235";
 
