@@ -45,4 +45,22 @@ public class Location {
     public boolean isOnPrimeMeridian() {
         return lon == 0;
     }
+
+    public double distance(Location otherLocation) {
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(otherLocation.getLat() - lat);
+        double lonDistance = Math.toRadians(otherLocation.getLon() - lon);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(otherLocation.getLat()))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        distance = Math.pow(distance, 2);
+
+        return Math.sqrt(distance);
+    }
+
 }

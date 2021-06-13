@@ -33,4 +33,14 @@ class LocationTest {
         assertTrue(rastroWebsite.isOnPrimeMeridian());
         assertFalse(rastroWebsite.isOnEquator());
     }
+
+    @Test
+    void distance() {
+        String onEquator = "Panadería El Paraiso,0,-78.45011";
+        Location panaderiaElParaiso = locationParser.parse(onEquator);
+        String onPrimeMeridian = "rastro.website,38.85501,0";
+        Location rastroWebsite = locationParser.parse(onPrimeMeridian);
+
+        System.out.println(panaderiaElParaiso.distance(rastroWebsite));
+    }
 }
