@@ -36,7 +36,7 @@ class LocationTest {
 
     @Test
     void distance() {
-        String onEquator = "Panadería El Paraiso,0,-78.45011";
+        String onEquator = "Győr Cuha 41., 47.6660111, 17.6439626";
         Location panaderiaElParaiso = locationParser.parse(onEquator);
         String onPrimeMeridian = "rastro.website,38.85501,0";
         Location rastroWebsite = locationParser.parse(onPrimeMeridian);
