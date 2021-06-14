@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class LocationTest {
+class LocationTest implements PrintNameCapable{
 
     LocationParser locationParser;
 
@@ -36,11 +36,11 @@ class LocationTest {
 
     @Test
     void distance() {
-        String onEquator = "Győr Cuha 41., 47.6660111, 17.6439626";
-        Location panaderiaElParaiso = locationParser.parse(onEquator);
-        String onPrimeMeridian = "rastro.website,38.85501,0";
-        Location rastroWebsite = locationParser.parse(onPrimeMeridian);
+        String gpsDeLaCasaMia = "Győr Cuha 41.,47.6660111,17.6439626";
+        Location casaMia = locationParser.parse(gpsDeLaCasaMia);
+        String gpsDeLaEscuelalaplaya = "Esuelalaplaya,36.7225263,-4.3231241";
+        Location escuelaDeRomanNavarro = locationParser.parse(gpsDeLaEscuelalaplaya);
 
-        System.out.println(panaderiaElParaiso.distance(rastroWebsite));
+        assertEquals(2168, casaMia.distance(escuelaDeRomanNavarro), 2.1);
     }
 }

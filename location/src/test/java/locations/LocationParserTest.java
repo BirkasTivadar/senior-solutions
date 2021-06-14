@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LocationParserTest {
+class LocationParserTest implements PrintNameCapable{
 
     LocationParser locationParser;
 
@@ -35,16 +35,17 @@ class LocationParserTest {
 
         assertEquals(location1.getName(), location2.getName());
         assertNotEquals(location1, location2);
+        assertNotSame(location1, location2);
     }
 
     @Test
-    void testParseAll(){
+    void testParseAll() {
         Location location = locationParser.parse("Budapest,47.497912,19.040235");
 
         assertAll(
-                ()-> assertEquals("Budapest", location.getName()),
-                ()-> assertEquals(47.497912, location.getLat()),
-                ()-> assertEquals(19.040235, location.getLon())
+                () -> assertEquals("Budapest", location.getName()),
+                () -> assertEquals(47.497912, location.getLat()),
+                () -> assertEquals(19.040235, location.getLon())
         );
     }
 }

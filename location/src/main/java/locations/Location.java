@@ -56,7 +56,7 @@ public class Location {
                 + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(otherLocation.getLat()))
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c * 1000; // convert to meters
+        double distance = R * c; // convert to meters
 
         distance = Math.pow(distance, 2);
 
