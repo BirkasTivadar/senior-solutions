@@ -1,8 +1,12 @@
 package locations;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Objects;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,8 +56,6 @@ class LocationTest implements PrintNameCapable {
         IllegalArgumentException iae2 = assertThrows(IllegalArgumentException.class,
                 () -> locationParser.parse("Győr, -95.21, 102.45"));
         assertEquals("Wrong lat: -95.21", iae2.getMessage());
-
-
     }
 
     @Test
@@ -67,6 +69,7 @@ class LocationTest implements PrintNameCapable {
         assertEquals("Wrong lon: -182.45", iae2.getMessage());
     }
 
+
     Object[][] values = {
             {true, new Location("Panadería", 0, -78.45011)},
             {false, new Location("Győr", 45.6, -78.45011)},
@@ -74,9 +77,38 @@ class LocationTest implements PrintNameCapable {
     };
 
     @RepeatedTest(value = 3)
-    void testFilterOnNorthWithRepeatedTest(RepetitionInfo repetitionInfo) {
+    void testIsOnEquator(RepetitionInfo repetitionInfo) {
         int index = repetitionInfo.getCurrentRepetition() - 1;
 
         assertEquals(values[index][0], Location.class.cast(values[index][1]).isOnEquator());
+    }
+
+
+    @ParameterizedTest()
+    @MethodSource("createIsOnPrimeMeridian")
+    void testIsOnPrimeMeridian(boolean isOnPrimeMeridian, Location location) {
+
+        assertEquals(isOnPrimeMeridian, location.isOnPrimeMeridian());
+    }
+
+    static Stream<Arguments> createIsOnPrimeMeridian() {
+        return Stream.of(
+                Arguments.arguments(true, new Location("rastro.website",38.85501,0)),
+                Arguments.arguments(false, new Location("Győr",18.85501,45.567)),
+                Arguments.arguments(false, new Location("Ecuador",39.89,23.456)),
+                Arguments.arguments(true, new Location("Ecuador",89.89,0))
+        );
+    }
+
+
+    @ParameterizedTest()
+    @CsvSource(
+            "47.6660111, 17.6439626,47.6076284, 17.6389745, 6.503"
+    )
+    void testDistanceFromCsv(double lat1, double lon1, double lat2, double lon2, double distance ){
+        Location location1 = new Location("Győr", lat1, lon1);
+        Location location2 = new Location("Győrújbarát", lat2, lon2);
+
+        assertEquals(distance, location1.distance(location2), 0.001);
     }
 }
