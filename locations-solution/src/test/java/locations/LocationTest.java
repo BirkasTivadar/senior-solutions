@@ -38,7 +38,7 @@ class LocationTest implements PrintNameCapable{
     void distance() {
         String gpsDeLaCasaMia = "Győr Cuha 41.,47.6660111,17.6439626";
         Location casaMia = locationParser.parse(gpsDeLaCasaMia);
-        String gpsDeLaEscuelalaplaya = "Esuelalaplaya,36.7225263,-4.3231241";
+        String gpsDeLaEscuelalaplaya = "Escuelalaplaya,36.7225263,-4.3231241";
         Location escuelaDeRomanNavarro = locationParser.parse(gpsDeLaEscuelalaplaya);
 
         assertEquals(2168, casaMia.distance(escuelaDeRomanNavarro), 2.1);
