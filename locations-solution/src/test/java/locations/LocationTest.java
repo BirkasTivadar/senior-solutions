@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class LocationTest implements PrintNameCapable{
+class LocationTest implements PrintNameCapable {
 
     LocationParser locationParser;
 
@@ -43,4 +43,30 @@ class LocationTest implements PrintNameCapable{
 
         assertEquals(2168, casaMia.distance(escuelaDeRomanNavarro), 2.1);
     }
+
+    @Test
+    void createLocationWithWrongLat() {
+        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class,
+                () -> new Location("Győr", 95.21, 102.45));
+        assertEquals("Wrong lat: 95.21", iae.getMessage());
+
+        IllegalArgumentException iae2 = assertThrows(IllegalArgumentException.class,
+                () -> locationParser.parse("Győr, -95.21, 102.45"));
+        assertEquals("Wrong lat: -95.21", iae2.getMessage());
+
+
+    }
+
+    @Test
+    void createLocationWithWrongLon() {
+        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class,
+                () -> new Location("Győr", 45.21, 182.45));
+        assertEquals("Wrong lon: 182.45", iae.getMessage());
+
+        IllegalArgumentException iae2 = assertThrows(IllegalArgumentException.class,
+                () -> new Location("Győr", 45.21, -182.45));
+        assertEquals("Wrong lon: -182.45", iae2.getMessage());
+    }
+
+
 }

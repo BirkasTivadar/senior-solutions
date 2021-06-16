@@ -10,7 +10,13 @@ public class Location {
 
     public Location(String name, double lat, double lon) {
         this.name = name;
+        if (lat > 90 || lat < -90) {
+            throw new IllegalArgumentException("Wrong lat: " + lat);
+        }
         this.lat = lat;
+        if (lon > 180 || lon < -180) {
+            throw new IllegalArgumentException("Wrong lon: " + lon);
+        }
         this.lon = lon;
     }
 
