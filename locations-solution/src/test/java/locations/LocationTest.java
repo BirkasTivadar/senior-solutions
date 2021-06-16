@@ -1,9 +1,8 @@
 package locations;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,5 +67,16 @@ class LocationTest implements PrintNameCapable {
         assertEquals("Wrong lon: -182.45", iae2.getMessage());
     }
 
+    Object[][] values = {
+            {true, new Location("Panadería", 0, -78.45011)},
+            {false, new Location("Győr", 45.6, -78.45011)},
+            {true, new Location("Cuba", 0, 34.567)}
+    };
 
+    @RepeatedTest(value = 3)
+    void testFilterOnNorthWithRepeatedTest(RepetitionInfo repetitionInfo) {
+        int index = repetitionInfo.getCurrentRepetition() - 1;
+
+        assertEquals(values[index][0], Location.class.cast(values[index][1]).isOnEquator());
+    }
 }
