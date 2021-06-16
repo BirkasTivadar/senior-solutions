@@ -93,10 +93,10 @@ class LocationTest implements PrintNameCapable {
 
     static Stream<Arguments> createIsOnPrimeMeridian() {
         return Stream.of(
-                Arguments.arguments(true, new Location("rastro.website",38.85501,0)),
-                Arguments.arguments(false, new Location("Győr",18.85501,45.567)),
-                Arguments.arguments(false, new Location("Ecuador",39.89,23.456)),
-                Arguments.arguments(true, new Location("Ecuador",89.89,0))
+                Arguments.arguments(true, new Location("rastro.website", 38.85501, 0)),
+                Arguments.arguments(false, new Location("Győr", 18.85501, 45.567)),
+                Arguments.arguments(false, new Location("Ecuador", 39.89, 23.456)),
+                Arguments.arguments(true, new Location("Ecuador", 89.89, 0))
         );
     }
 
@@ -105,7 +105,7 @@ class LocationTest implements PrintNameCapable {
     @CsvSource(
             "47.6660111, 17.6439626,47.6076284, 17.6389745, 6.503"
     )
-    void testDistanceFromCsv(double lat1, double lon1, double lat2, double lon2, double distance ){
+    void testDistanceFromCsv(double lat1, double lon1, double lat2, double lon2, double distance) {
         Location location1 = new Location("Győr", lat1, lon1);
         Location location2 = new Location("Győrújbarát", lat2, lon2);
 
