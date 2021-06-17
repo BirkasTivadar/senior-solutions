@@ -1,5 +1,6 @@
 package locations;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ class LocationServiceTest {
             new Location("Bazilika", 47.5007388, 19.0532146),
             locationParser.parse("rastro.website,38.85501,0")
     );
+
 
     @TempDir
     Path tempDir;
