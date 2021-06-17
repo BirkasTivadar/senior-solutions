@@ -26,7 +26,6 @@ class LocationTest implements PrintNameCapable {
         Location panaderiaElParaiso = locationParser.parse(onEquator);
         assertTrue(panaderiaElParaiso.isOnEquator());
         assertFalse(panaderiaElParaiso.isOnPrimeMeridian());
-
     }
 
     @Test
@@ -110,5 +109,16 @@ class LocationTest implements PrintNameCapable {
         Location location2 = new Location("Győrújbarát", lat2, lon2);
 
         assertEquals(distance, location1.distance(location2), 0.001);
+    }
+
+    @TestFactory
+    Stream<DynamicTest> testIsOnEquator() {
+        return Stream.of(new Location[]{
+                new Location("Panadería El Paraiso", 0, -78.45011),
+                new Location("Ecuador", 0, 89.986473),
+                new Location("Mitad Del Mundo", 0, -78.45593504602785)
+        }).map(l -> DynamicTest.dynamicTest(l.getName() + " is on Equator",
+                () -> assertTrue(l.isOnEquator())
+        ));
     }
 }
