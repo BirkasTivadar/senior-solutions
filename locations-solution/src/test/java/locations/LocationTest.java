@@ -111,6 +111,7 @@ class LocationTest implements PrintNameCapable {
         assertEquals(distance, location1.distance(location2), 0.001);
     }
 
+
     @TestFactory
     Stream<DynamicTest> testIsOnEquator() {
         return Stream.of(new Location[]{
