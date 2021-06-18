@@ -36,8 +36,10 @@ class DistanceServiceTest {
                 .thenReturn(Optional.of(new Location("Győrújbarát", 47.6076284, 17.6389745)));
 
         Optional<Double> optionalDistance = distanceService.calculateDistance("Győr", "Győrújbarát");
-
         assertEquals(6.503, optionalDistance.get(), 0.01);
+
+        optionalDistance = distanceService.calculateDistance("Hello", "Győr");
+        assertEquals(Optional.empty(), optionalDistance);
     }
 
 }
