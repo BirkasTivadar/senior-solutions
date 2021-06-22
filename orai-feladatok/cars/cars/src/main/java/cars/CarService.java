@@ -30,6 +30,6 @@ public class CarService {
     }
 
     public Set<String> getTypes() {
-        return cars.stream().map(c -> c.getCarBrand()).collect(Collectors.toSet());
+        return cars.stream().map(Car::getCarBrand).collect(Collectors.toSet());
     }
 }
