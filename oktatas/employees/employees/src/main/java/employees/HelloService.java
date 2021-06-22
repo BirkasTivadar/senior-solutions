@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Service
 public class HelloService {
 
-    public String sayHello(){
+    public String sayHello() {
         return "Hello Bibi Spring Boot (service) " + LocalDateTime.now();
     }
 }
