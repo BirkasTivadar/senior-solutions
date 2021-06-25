@@ -25,6 +25,5 @@ public class CarController {
     @GetMapping("/types")
     public Set<String> getTypes(){
         return carService.getTypes();
-
     }
 }

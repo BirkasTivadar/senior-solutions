@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,9 +31,10 @@ public class BikeService {
 
     private void loadBikes() {
 
+//        try (BufferedReader br = Files.newBufferedReader(Path.of("bikes.csv"))) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(BikeService.class.getResourceAsStream("bikes.csv")))) {
             String line;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             while ((line = br.readLine()) != null) {
                 String[] lineArr = line.split(SEPARATOR);
                 String bikeId = lineArr[0];
