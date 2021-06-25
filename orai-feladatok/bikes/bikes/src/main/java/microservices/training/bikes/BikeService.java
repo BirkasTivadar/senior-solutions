@@ -32,7 +32,7 @@ public class BikeService {
     private void loadBikes() {
 
 //        try (BufferedReader br = Files.newBufferedReader(Path.of("bikes.csv"))) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(BikeService.class.getResourceAsStream("bikes.csv")))) {
+        try (BufferedReader br = Files.newBufferedReader(Path.of("src/main/resources/bikes.csv"))) {
             String line;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             while ((line = br.readLine()) != null) {
