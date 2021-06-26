@@ -2,7 +2,7 @@ package locations;
 
 public class Location {
 
-    private long Id;
+    private long id;
 
     private String name;
 
@@ -11,14 +11,14 @@ public class Location {
     private double lon;
 
     public Location(long id, String name, double lat, double lon) {
-        Id = id;
+        this.id = id;
         this.name = name;
         this.lat = lat;
         this.lon = lon;
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public String getName() {
@@ -36,7 +36,7 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", name='" + name + '\'' +
                 ", lat=" + lat +
                 ", lon=" + lon +
