@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LocationsController {
@@ -17,6 +19,13 @@ public class LocationsController {
     @GetMapping("/")
     @ResponseBody
     public String getLocations() {
-        return "hello";
+        StringBuilder sb = new StringBuilder();
+        locations.forEach(
+                e -> sb.append(e).append(" "));
+//                e -> sb.append(e.getName()).append(" ")
+//                        .append(e.getLat()).append(" ")
+//                        .append(e.getLon())
+//                        .append(" | "));
+        return sb.append(LocalDateTime.now()).toString();
     }
 }
