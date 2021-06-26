@@ -13,7 +13,7 @@ public class LocationsService {
             new Location(1002, "Sol Instituto", 36.719359297592376, -4.364970322146287)
     );
 
-    public List<Location> getLocations(){
+    public List<Location> getLocations() {
         return locations;
     }
 }
