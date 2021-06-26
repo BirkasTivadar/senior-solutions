@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//@Service
+@Service
 public class LocationsService {
 
     private List<Location> locations = List.of(
