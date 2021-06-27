@@ -13,7 +13,7 @@ class LocationsServiceTest {
     List<Location> locations = locationsService.getLocations();
 
     @Test
-    void testGetLocations(){
+    void testGetLocations() {
         assertEquals(2, locations.size());
 
         assertEquals("Sol Instituto", locations.get(1).getName());
