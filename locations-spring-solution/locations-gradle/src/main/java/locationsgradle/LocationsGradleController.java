@@ -17,11 +17,5 @@ public class LocationsGradleController {
     @GetMapping("/locations")
     public List<LocationGradle> getLocations() {
         return locationsGradleService.getLocations();
-//        StringBuilder sb = new StringBuilder();
-//        locationsService.getLocations().forEach(
-//                e -> sb.append(e)
-//                        .append(" ")
-//        );
-//        return sb.toString();
     }
 }
