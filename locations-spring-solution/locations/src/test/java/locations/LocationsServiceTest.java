@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LocationsServiceTest {
 
-    private LocationsService locationsService = new LocationsService();
+    private final LocationsService locationsService = new LocationsService();
 
     List<Location> locations = locationsService.getLocations();
 

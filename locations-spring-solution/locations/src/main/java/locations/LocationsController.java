@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 public class LocationsController {
 
-    private LocationsService locationsService;
+    private final LocationsService locationsService;
 
     public LocationsController(LocationsService locationsService) {
         this.locationsService = locationsService;
