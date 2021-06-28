@@ -25,8 +25,7 @@ public class EmployeesService {
     }
 
     public List<EmployeeDto> listEmployees() {
-        Type targetListType = new TypeToken<List<EmployeeDto>>() {
-        }.getType();
+        Type targetListType = new TypeToken<List<EmployeeDto>>() {}.getType();
         return modelMapper.map(employees, targetListType);
     }
 }
