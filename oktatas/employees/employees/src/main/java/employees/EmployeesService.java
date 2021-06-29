@@ -8,12 +8,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeesService {
 
     private ModelMapper modelMapper;
-
 
     private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
             new Employee(1L, "John Doe"),
@@ -24,8 +25,19 @@ public class EmployeesService {
         this.modelMapper = modelMapper;
     }
 
-    public List<EmployeeDto> listEmployees() {
-        Type targetListType = new TypeToken<List<EmployeeDto>>() {}.getType();
-        return modelMapper.map(employees, targetListType);
+    public List<EmployeeDto> listEmployees(Optional<String> prefix) {
+        Type targetListType = new TypeToken<List<EmployeeDto>>() {
+        }.getType();
+        List<Employee> filtered = employees.stream()
+                .filter(e -> prefix.isEmpty() || e.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
+                .collect(Collectors.toList());
+        return modelMapper.map(filtered, targetListType);
+    }
+
+    public EmployeeDto findEmployeeById(long id) {
+        Employee employeeFindById = employees.stream()
+                .filter(e -> e.getId() == id).findAny()
+                .orElseThrow(() -> new IllegalArgumentException("Employee not found" + id));
+        return modelMapper.map(employeeFindById, EmployeeDto.class);
     }
 }
