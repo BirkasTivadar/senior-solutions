@@ -23,7 +23,8 @@ public class Movie {
 
     private double averageRate;
 
-    public Movie(String title, double length) {
+    public Movie(Long id, String title, double length) {
+        this.id = id;
         this.title = title;
         this.length = length;
     }

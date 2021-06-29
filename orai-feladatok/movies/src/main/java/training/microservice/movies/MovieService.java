@@ -17,7 +17,7 @@ public class MovieService {
     private ModelMapper modelMapper;
 
     private List<Movie> movies = Collections.synchronizedList(new ArrayList<>(List.of(
-            new Movie("Titanic", 2.3)
+            new Movie(1L, "Titanic", 2.3)
     )));
 
     public MovieService(ModelMapper modelMapper) {
