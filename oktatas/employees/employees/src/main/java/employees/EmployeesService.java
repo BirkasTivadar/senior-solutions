@@ -40,7 +40,7 @@ public class EmployeesService {
     public EmployeeDto findEmployeeById(long id) {
         Employee employeeFindById = employees.stream()
                 .filter(e -> e.getId() == id).findAny()
-                .orElseThrow(() -> new IllegalArgumentException("Employee not found" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id));
         return modelMapper.map(employeeFindById, EmployeeDto.class);
     }
 
