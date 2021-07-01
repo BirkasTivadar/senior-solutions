@@ -4,13 +4,16 @@ package employees;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -43,7 +46,7 @@ public class EmployeesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EmployeeDto createEmployee(@RequestBody CreateEmployeeCommand command) {
+    public EmployeeDto createEmployee(@Valid @RequestBody CreateEmployeeCommand command) {
         return employeesService.createEmployeeCommand(command);
     }
 
@@ -71,6 +74,28 @@ public class EmployeesController {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(problem);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Problem> handleValidException(MethodArgumentNotValidException exception) {
+        List<Violation> violations =
+                exception.getBindingResult().getFieldErrors().stream()
+                        .map(fe -> new Violation(fe.getField(), fe.getDefaultMessage()))
+                        .collect(Collectors.toList());
+
+        Problem problem =
+                Problem.builder()
+                        .withType(URI.create("employees/not-valid"))
+                        .withTitle("Validation error")
+                        .withStatus(Status.BAD_REQUEST)
+                        .withDetail(exception.getMessage())
+                        .with("violations", violations)
+                        .build();
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(problem);
     }
