@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,8 +39,8 @@ class LocationsControllerTest {
                 .map(location -> modelMapper.map(location, LocationDto.class))
                 .collect(Collectors.toList());
 
-        when(locationsService.getLocations(null)).thenReturn(locationDtos);
-        assertThat(locationsController.getLocations(null)
+        when(locationsService.getLocations(Optional.empty())).thenReturn(locationDtos);
+        assertThat(locationsController.getLocations(Optional.empty())
                 .get(0)
                 .getName())
                 .isEqualTo("Pálffy terasz");

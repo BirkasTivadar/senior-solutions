@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +17,7 @@ class LocationsControllerIT {
 
     @Test
     void testGetLocations() {
-        List<LocationDto> locations = locationsController.getLocations(null);
+        List<LocationDto> locations = locationsController.getLocations(Optional.empty());
 
         assertThat(locations.size()).isEqualTo(2);
 

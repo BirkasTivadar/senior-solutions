@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +12,7 @@ class LocationsServiceTest {
 
     private final LocationsService locationsService = new LocationsService(new ModelMapper());
 
-    List<LocationDto> locations = locationsService.getLocations(null);
+    List<LocationDto> locations = locationsService.getLocations(Optional.empty());
 
     @Test
     void testGetLocations() {
