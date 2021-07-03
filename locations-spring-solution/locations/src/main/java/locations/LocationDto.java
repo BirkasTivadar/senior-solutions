@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location {
+public class LocationDto {
 
     private long id;
 
@@ -16,11 +16,4 @@ public class Location {
     private double lat;
 
     private double lon;
-
-
-    public Location(String name, double lat, double lon) {
-        this.name = name;
-        this.lat = lat;
-        this.lon = lon;
-    }
 }

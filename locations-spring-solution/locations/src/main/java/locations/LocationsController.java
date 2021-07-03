@@ -1,11 +1,13 @@
 package locations;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("api/locations")
 public class LocationsController {
 
     private final LocationsService locationsService;
@@ -14,14 +16,8 @@ public class LocationsController {
         this.locationsService = locationsService;
     }
 
-    @GetMapping("/locations")
-    public List<Location> getLocations() {
+    @GetMapping
+    public List<LocationDto> getLocations() {
         return locationsService.getLocations();
-//        StringBuilder sb = new StringBuilder();
-//        locationsService.getLocations().forEach(
-//                e -> sb.append(e)
-//                        .append(" ")
-//        );
-//        return sb.toString();
     }
 }
