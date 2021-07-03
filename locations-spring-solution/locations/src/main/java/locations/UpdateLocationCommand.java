@@ -17,6 +17,6 @@ public class UpdateLocationCommand {
     private Optional<Double> lat;
 
     private Optional<Double> lon;
-
-
 }
+
+
