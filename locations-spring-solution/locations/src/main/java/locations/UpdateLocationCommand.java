@@ -4,15 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateLocationCommand {
 
-    private String name;
+    private Optional<String> name;
 
-    private Double lat;
+    private Optional<Double> lat;
 
-    private Double lon;
+    private Optional<Double> lon;
+
 
 }

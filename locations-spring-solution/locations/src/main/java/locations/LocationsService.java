@@ -55,14 +55,14 @@ public class LocationsService {
                 .filter(l -> l.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Location not found: " + id));
-        if (command.getName() != null) {
-            location.setName(command.getName());
+        if (command.getName().isPresent()) {
+            location.setName(command.getName().get());
         }
-        if (command.getLat() != null) {
-            location.setLat(command.getLat());
+        if (command.getLat().isPresent()) {
+            location.setLat(command.getLat().get());
         }
-        if (command.getLon() != null) {
-            location.setLon(command.getLon());
+        if (command.getLon().isPresent()) {
+            location.setLon(command.getLon().get());
         }
 
         return modelMapper.map(location, LocationDto.class);
