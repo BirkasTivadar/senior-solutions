@@ -31,3 +31,14 @@ Accept: application/json
 
 ###
 DELETE http://localhost:8080/api/locations/3
+
+### Validation
+POST http://localhost:8080/api/locations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "",
+  "lat": 47.78047153293665,
+  "lon": 17.50511081164347
+}
