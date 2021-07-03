@@ -3,6 +3,10 @@ GET http://localhost:8080/api/locations/
 Accept: application/json
 
 ###
+GET http://localhost:8080/api/locations/3
+Accept: application/json
+
+###
 POST http://localhost:8080/api/locations
 Content-Type: application/json
 Accept: application/json
@@ -14,16 +18,16 @@ Accept: application/json
 }
 
 ###
-PUT http://localhost:8080/api/locations/1
+PUT http://localhost:8080/api/locations/3
 Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Dunaszentpál focipálya",
-  "lat": 47.78047153293665,
+  "name": null,
+  "lat": 47.7802912954123,
   "lon": 17.505475592098865
 }
 
 
 ###
-DELETE http://localhost:8080/api/locations/1
+DELETE http://localhost:8080/api/locations/3
