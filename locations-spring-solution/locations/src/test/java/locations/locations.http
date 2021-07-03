@@ -12,3 +12,18 @@ Accept: application/json
   "lat": 47.78047153293665,
   "lon": 17.50511081164347
 }
+
+###
+PUT http://localhost:8080/api/locations/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Dunaszentpál focipálya",
+  "lat": 47.78047153293665,
+  "lon": null
+}
+
+
+###
+DELETE http://localhost:8080/api/locations/1

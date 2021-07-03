@@ -49,4 +49,30 @@ public class LocationsService {
         locations.add(location);
         return modelMapper.map(location, LocationDto.class);
     }
+
+    public LocationDto updateLocation(long id, UpdateLocationCommand command) {
+        Location location = locations.stream()
+                .filter(l -> l.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Location not found: " + id));
+        if (command.getName() != null) {
+            location.setName(command.getName());
+        }
+        if (command.getLat() != null) {
+            location.setLat(command.getLat());
+        }
+        if (command.getLon() != null) {
+            location.setLon(command.getLon());
+        }
+
+        return modelMapper.map(location, LocationDto.class);
+    }
+
+    public void deleteLocation(long id) {
+        Location location = locations.stream()
+                .filter(l -> l.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Location not found: " + id));
+        locations.remove(location);
+    }
 }
