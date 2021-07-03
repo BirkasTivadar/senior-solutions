@@ -24,4 +24,9 @@ public class LocationsController {
     public LocationDto findLocationById(@PathVariable("id") long id) {
         return locationsService.findLocationById(id);
     }
+
+    @PostMapping
+    public LocationDto createLocation(@RequestBody CreateLocationCommand command){
+        return locationsService.createLocation(command);
+    }
 }
