@@ -38,8 +38,8 @@ class LocationsControllerTest {
                 .map(location -> modelMapper.map(location, LocationDto.class))
                 .collect(Collectors.toList());
 
-        when(locationsService.getLocations()).thenReturn(locationDtos);
-        assertThat(locationsController.getLocations()
+        when(locationsService.getLocations(null)).thenReturn(locationDtos);
+        assertThat(locationsController.getLocations(null)
                 .get(0)
                 .getName())
                 .isEqualTo("Pálffy terasz");

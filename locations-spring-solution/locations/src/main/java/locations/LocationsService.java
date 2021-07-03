@@ -5,16 +5,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 //import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class LocationsService {
 
     private ModelMapper modelMapper;
-
 
     private final List<Location> locations = Collections.synchronizedList(new ArrayList<>(
             List.of(
@@ -26,11 +23,21 @@ public class LocationsService {
         this.modelMapper = modelMapper;
     }
 
-    public List<LocationDto> getLocations() {
+    public List<LocationDto> getLocations(Optional<String> prefix) {
 //        Type targetListType = new TypeToken<List<LocationDto>>(){}.getType();
-//        return modelMapper.map(locations, targetListType);
-        return locations.stream()
+//        List<Location> filtered = locations.stream().
+//                filter(location -> prefix.isEmpty() || location.getName().toLowerCase().startsWith(prefix.get().toLowerCase())).collect(Collectors.toList());
+//        return modelMapper.map(filtered, targetListType);
+        return locations.stream().
+                filter(location -> prefix.isEmpty() || location.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
                 .map(location -> modelMapper.map(location, LocationDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public LocationDto findLocationById(long id) {
+        return modelMapper.map(locations.stream()
+                        .filter(l -> l.getId() == id).findAny()
+                        .orElseThrow(() -> new IllegalArgumentException("Location not found: " + id)),
+                LocationDto.class);
     }
 }

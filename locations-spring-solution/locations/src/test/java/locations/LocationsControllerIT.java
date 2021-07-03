@@ -16,7 +16,7 @@ class LocationsControllerIT {
 
     @Test
     void testGetLocations() {
-        List<LocationDto> locations = locationsController.getLocations();
+        List<LocationDto> locations = locationsController.getLocations(null);
 
         assertThat(locations.size()).isEqualTo(2);
 

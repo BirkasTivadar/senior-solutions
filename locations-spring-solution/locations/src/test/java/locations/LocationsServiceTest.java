@@ -11,14 +11,13 @@ class LocationsServiceTest {
 
     private final LocationsService locationsService = new LocationsService(new ModelMapper());
 
-    List<LocationDto> locations = locationsService.getLocations();
+    List<LocationDto> locations = locationsService.getLocations(null);
 
     @Test
     void testGetLocations() {
         assertEquals(2, locations.size());
 
         assertEquals("Sol Instituto", locations.get(1).getName());
-
     }
 
 }
