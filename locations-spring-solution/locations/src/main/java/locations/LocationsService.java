@@ -37,7 +37,7 @@ public class LocationsService {
                 .collect(Collectors.toList());
     }
 
-    public LocationDto findLocationById(long id) {
+    public LocationDto findLocationById(Long id) {
         return modelMapper.map(locations.stream()
                         .filter(l -> l.getId() == id).findAny()
                         .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id)),
@@ -74,5 +74,10 @@ public class LocationsService {
                 .findFirst()
                 .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id));
         locations.remove(location);
+    }
+
+    public void deleteAllLocations() {
+        idGenerator = new AtomicLong();
+        locations.clear();
     }
 }
