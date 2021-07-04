@@ -37,10 +37,18 @@ public class LocationsService {
                 .collect(Collectors.toList());
     }
 
+    private Location getLocationById(long id) {
+        return locations.stream()
+                .filter(l -> l.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id));
+    }
+
     public LocationDto findLocationById(Long id) {
-        return modelMapper.map(locations.stream()
-                        .filter(l -> l.getId() == id).findAny()
-                        .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id)),
+        return modelMapper.map(getLocationById(id),
+//                locations.stream()
+//                        .filter(l -> l.getId() == id).findAny()
+//                        .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id)),
                 LocationDto.class);
     }
 
@@ -51,10 +59,7 @@ public class LocationsService {
     }
 
     public LocationDto updateLocation(long id, UpdateLocationCommand command) {
-        Location location = locations.stream()
-                .filter(l -> l.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id));
+        Location location = getLocationById(id);
         if (command.getName().isPresent()) {
             location.setName(command.getName().get());
         }
@@ -69,12 +74,10 @@ public class LocationsService {
     }
 
     public void deleteLocation(long id) {
-        Location location = locations.stream()
-                .filter(l -> l.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new LocationNotFoundException("Location not found: " + id));
+        Location location = getLocationById(id);
         locations.remove(location);
     }
+
 
     public void deleteAllLocations() {
         idGenerator = new AtomicLong();

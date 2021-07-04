@@ -1,5 +1,6 @@
 package training.microservice.movies;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieDto {
+public class CreateMovieCommand {
 
     private String title;
 
     private Double length;
-
-    private Double averageRating;
 }

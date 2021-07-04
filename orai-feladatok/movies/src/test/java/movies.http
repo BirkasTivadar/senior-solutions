@@ -1,0 +1,29 @@
+###
+GET http://localhost:8080/api/movies
+Accept: application/json
+
+###
+POST http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Batman",
+  "length": 2.36
+}
+
+###
+POST http://localhost:8080/api/movies/2/rating
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rating": 6
+}
+
+###
+GET http://localhost:8080/api/movies/1
+Accept: application/json
+
+###
+DELETE http://localhost:8080/api/movies/1

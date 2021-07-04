@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -17,11 +16,11 @@ public class Movie {
 
     private String title;
 
-    private double length;
+    private Double length;
 
     private List<Integer> ratings = new ArrayList<>();
 
-    private double averageRate;
+    private Double averageRating;
 
     public Movie(Long id, String title, double length) {
         this.id = id;
@@ -29,8 +28,8 @@ public class Movie {
         this.length = length;
     }
 
-    public void addRate(int rate) {
-        ratings.add(rate);
-        averageRate = ratings.stream().mapToInt(r->r).sum() / ratings.size();
+    public void addRating(int rating) {
+        ratings.add(rating);
+        averageRating = ratings.stream().mapToInt(r -> r).summaryStatistics().getAverage();
     }
 }
