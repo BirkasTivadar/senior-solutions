@@ -24,18 +24,18 @@ public class MusicStoreService {
         this.modelMapper = modelMapper;
     }
 
-    public List<InstrumentDto> getInstruments(Optional<String> brand, Optional<Integer> price) {
+    public List<InstrumentDTO> getInstruments(Optional<String> brand, Optional<Integer> price) {
         return instruments.stream()
                 .filter(instrument -> (brand.isEmpty() || instrument.getBrand().equalsIgnoreCase(brand.get()))
                         && (price.isEmpty() || instrument.getPrice() == price.get()))
-                .map(instrument -> modelMapper.map(instrument, InstrumentDto.class))
+                .map(instrument -> modelMapper.map(instrument, InstrumentDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public InstrumentDto addNewInstrument(CreateInstrumentCommand command) {
+    public InstrumentDTO addNewInstrument(CreateInstrumentCommand command) {
         Instrument instrument = new Instrument(idGenerator.incrementAndGet(), command.getBrand(), command.getType(), command.getPrice(), LocalDate.now());
         instruments.add(instrument);
-        return modelMapper.map(instrument, InstrumentDto.class);
+        return modelMapper.map(instrument, InstrumentDTO.class);
     }
 
     public void deleteAllInstruments() {
@@ -50,8 +50,8 @@ public class MusicStoreService {
                 .orElseThrow(() -> new IllegalArgumentException("Instrument not found: " + id));
     }
 
-    public InstrumentDto getInstrumentById(Long id) {
-        return modelMapper.map(findInstrumentById(id), InstrumentDto.class);
+    public InstrumentDTO getInstrumentById(Long id) {
+        return modelMapper.map(findInstrumentById(id), InstrumentDTO.class);
     }
 
     public void deleteInstrumentById(Long id) {
@@ -59,12 +59,12 @@ public class MusicStoreService {
         instruments.remove(instrument);
     }
 
-    public InstrumentDto updateInstrumentPrice(Long id, UpdatePriceCommand command) {
+    public InstrumentDTO updateInstrumentPrice(Long id, UpdatePriceCommand command) {
         Instrument instrument = findInstrumentById(id);
         if (instrument.getPrice() != command.getPrice()) {
             instrument.setPrice(command.getPrice());
             instrument.setPostDate(LocalDate.now());
         }
-        return modelMapper.map(instrument, InstrumentDto.class);
+        return modelMapper.map(instrument, InstrumentDTO.class);
     }
 }

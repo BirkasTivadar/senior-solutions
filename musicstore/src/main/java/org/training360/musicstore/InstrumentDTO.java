@@ -9,9 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InstrumentDto {
-
-    private Long id;
+public class InstrumentDTO {
 
     private String brand;
 
