@@ -48,14 +48,20 @@ public class MovieService {
         return modelMapper.map(movie, MovieDto.class);
     }
 
-    public void deleteMovie(Long id) {
-        Movie movie = getMovieById(id);
-        movies.remove(movie);
-    }
-
     public MovieDto addRating(Long id, NewMovieRatingCommand command) {
         Movie movie = getMovieById(id);
         movie.addRating(command.getRating());
         return modelMapper.map(movie, MovieDto.class);
     }
+
+    public void deleteMovie(Long id) {
+        Movie movie = getMovieById(id);
+        movies.remove(movie);
+    }
+
+    public void deleteAllMovies() {
+        idGenerator = new AtomicLong();
+        movies.clear();
+    }
+
 }
