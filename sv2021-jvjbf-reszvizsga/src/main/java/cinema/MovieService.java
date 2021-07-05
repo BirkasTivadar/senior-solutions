@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class MovieService {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     private AtomicLong idGenerator = new AtomicLong();
 
