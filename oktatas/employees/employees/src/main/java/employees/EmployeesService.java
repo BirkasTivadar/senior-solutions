@@ -38,10 +38,8 @@ public class EmployeesService {
     }
 
     public EmployeeDto findEmployeeById(long id) {
-        Employee employeeFindById = employees.stream()
-                .filter(e -> e.getId() == id).findAny()
-                .orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id));
-        return modelMapper.map(employeeFindById, EmployeeDto.class);
+        Employee employee = getEmployeeById(id);
+        return modelMapper.map(employee, EmployeeDto.class);
     }
 
     public EmployeeDto createEmployeeCommand(CreateEmployeeCommand command) {
@@ -51,20 +49,21 @@ public class EmployeesService {
     }
 
     public EmployeeDto updateEmployee(long id, UpdateEmployeeCommand command) {
-        Employee employee = employees.stream()
-                .filter(e -> e.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id));
+        Employee employee = getEmployeeById(id);
         employee.setName(command.getName());
         return modelMapper.map(employee, EmployeeDto.class);
     }
 
     public void deleteEmployee(long id) {
-        Employee employee = employees.stream()
+        Employee employee = getEmployeeById(id);
+        employees.remove(employee);
+    }
+
+    private Employee getEmployeeById(Long id) {
+        return employees.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id));
-        employees.remove(employee);
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     public void deleteAllEmployees() {

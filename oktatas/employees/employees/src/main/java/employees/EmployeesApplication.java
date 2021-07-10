@@ -23,8 +23,8 @@ public class EmployeesApplication {
         return new ModelMapper();
     }
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper().findAndRegisterModules();
-    }
+//    @Bean
+//    public ObjectMapper objectMapper() {
+//        return new ObjectMapper().findAndRegisterModules();
+//    }
 }
