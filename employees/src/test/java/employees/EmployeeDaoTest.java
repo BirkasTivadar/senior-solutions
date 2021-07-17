@@ -57,7 +57,6 @@ public class EmployeeDaoTest {
         employee = employeeDao.findById(id);
 
         assertEquals("Jane Doe", employee.getName());
-
     }
 
     @Test
