@@ -1,6 +1,5 @@
 package employees;
 
-
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,15 +25,15 @@ public class EmployeeDaoTest {
 
         employeeDao = new EmployeeDao(entityManagerFactory);
 
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/employees?useUnicode=true");
-        dataSource.setUser("employees");
-        dataSource.setPassword("employees");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-
-        flyway.clean();
-        flyway.migrate();
+//        MysqlDataSource dataSource = new MysqlDataSource();
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/employees?useUnicode=true");
+//        dataSource.setUser("employees");
+//        dataSource.setPassword("employees");
+//
+//        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+//
+//        flyway.clean();
+//        flyway.migrate();
     }
 
     @Test
@@ -72,7 +72,7 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    void testDelete(){
+    void testDelete() {
         Employee employee = new Employee("John Doe");
         employeeDao.save(employee);
         long id = employee.getId();
@@ -83,5 +83,19 @@ public class EmployeeDaoTest {
         assertTrue(employees.isEmpty());
     }
 
+    @Test
+    void testIllegalId() {
+        Employee employee = employeeDao.findById(12L);
+        assertEquals(null, employee);
+    }
 
+    @Test
+    void testEmployeeWithAttributes() {
+        employeeDao.save(new Employee("John Doe", Employee.EmployeeType.FULL_TIME,
+                LocalDate.of(2000, 1, 1)));
+
+        Employee employee = employeeDao.listAll().get(0);
+
+        assertEquals(LocalDate.of(2000,1,1), employee.getDateOfBirth());
+    }
 }
