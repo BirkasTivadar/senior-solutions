@@ -6,15 +6,16 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "employees")
-@IdClass(EmployeeId.class)
+//@IdClass(EmployeeId.class)
 public class Employee {
 
     public enum EmployeeType {FULL_TIME, HALF_TIME}
 
-    @Id
-    private String depName;
+//    @Id
+//    private String depName;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @GeneratedValue(generator = "Emp_Gen")
 //    @TableGenerator(name = "Emp_Gen", table = "emp_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val")
     private Long id;
@@ -28,6 +29,11 @@ public class Employee {
 
     private LocalDate dateOfBirth;
 
+    @PostPersist
+    public void debugPersist() {
+        System.out.println(name + " " + id);
+    }
+
     public Employee() {
     }
 
@@ -35,19 +41,19 @@ public class Employee {
         this.name = name;
     }
 
-    public Employee(String depName, Long id, String name) {
-        this.depName = depName;
-        this.id = id;
-        this.name = name;
-    }
-
-    public Employee(String depName, Long id, String name, EmployeeType employeeType, LocalDate dateOfBirth) {
-        this.depName = depName;
-        this.id = id;
-        this.name = name;
-        this.employeeType = employeeType;
-        this.dateOfBirth = dateOfBirth;
-    }
+//    public Employee(String depName, Long id, String name) {
+//        this.depName = depName;
+//        this.id = id;
+//        this.name = name;
+//    }
+//
+//    public Employee(String depName, Long id, String name, EmployeeType employeeType, LocalDate dateOfBirth) {
+//        this.depName = depName;
+//        this.id = id;
+//        this.name = name;
+//        this.employeeType = employeeType;
+//        this.dateOfBirth = dateOfBirth;
+//    }
 
     public Employee(String name, EmployeeType employeeType, LocalDate dateOfBirth) {
         this.name = name;
@@ -55,13 +61,13 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getDepName() {
-        return depName;
-    }
-
-    public void setDepName(String depName) {
-        this.depName = depName;
-    }
+//    public String getDepName() {
+//        return depName;
+//    }
+//
+//    public void setDepName(String depName) {
+//        this.depName = depName;
+//    }
 
     public Long getId() {
         return id;
