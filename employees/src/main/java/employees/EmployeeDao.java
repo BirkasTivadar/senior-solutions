@@ -42,6 +42,16 @@ public class EmployeeDao {
         return employee;
     }
 
+    public Employee findEmployeeByIdWithNickNames(Long id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Employee employee = em
+                .createQuery("select e from Employee e join fetch e.nicknames where id = :id", Employee.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.close();
+        return employee;
+    }
+
     public List<Employee> listEmployees() {
         EntityManager em = entityManagerFactory.createEntityManager();
         List<Employee> employees = em
@@ -88,6 +98,28 @@ public class EmployeeDao {
         em.getTransaction().commit();
         em.close();
     }
+
+    public Employee findEmployeeByIdWithVacations(Long id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Employee employee = em
+                .createQuery("select e from Employee e join fetch e.vacationBookings where id = :id", Employee.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.close();
+        return employee;
+    }
+
+    public Employee findEmployeeByIdWithPhoneNumbers(Long id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Employee employee = em
+                .createQuery("select e from Employee e join fetch e.phoneNumbers where id = :id", Employee.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.close();
+        return employee;
+    }
+
+//    Nem ajánlott, mert nyitva marad persist
 
 //    private EntityManager entityManager;
 //

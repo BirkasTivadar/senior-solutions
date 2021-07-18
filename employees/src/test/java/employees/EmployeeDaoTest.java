@@ -2,6 +2,7 @@ package employees;
 
 //import com.mysql.cj.jdbc.MysqlDataSource;
 //import org.flywaydb.core.Flyway;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,8 @@ import javax.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -161,6 +164,45 @@ public class EmployeeDaoTest {
         }
 
         employeeDao.updateEmployeeNames();
+    }
+
+    @Test
+    void testNicknames() {
+        Employee employee = new Employee("John Doe");
+        employee.setNicknames(Set.of("Johnny", "J"));
+        employeeDao.saveEmployee(employee);
+
+        Employee anotherEmployee = employeeDao.findEmployeeByIdWithNickNames(employee.getId());
+        assertEquals(Set.of("J", "Johnny"), anotherEmployee.getNicknames());
+    }
+
+    @Test
+    void testVacations() {
+        Employee employee = new Employee("John Doe");
+        employee.setVacationBookings(Set.of(
+                new VacationEntry(LocalDate.of(2018, 1, 1), 4),
+                new VacationEntry(LocalDate.of(2018, 2, 15), 2)
+        ));
+
+        employeeDao.saveEmployee(employee);
+
+        Employee anotherEmployee = employeeDao.findEmployeeByIdWithVacations(employee.getId());
+        System.out.println(anotherEmployee.getVacationBookings());
+        assertEquals(2, anotherEmployee.getVacationBookings().size());
+    }
+
+    @Test
+    void testPhoneNumbers() {
+        Employee employee = new Employee("John Doe");
+        employee.setPhoneNumbers(Map.of(
+                "home", "1234",
+                "work", "4321"));
+
+        employeeDao.saveEmployee(employee);
+
+        Employee anotherEmployee = employeeDao.findEmployeeByIdWithPhoneNumbers(employee.getId());
+        assertEquals("1234", anotherEmployee.getPhoneNumbers().get("home"));
+        assertEquals("4321", anotherEmployee.getPhoneNumbers().get("work"));
     }
 
 }
