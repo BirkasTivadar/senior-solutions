@@ -1,11 +1,11 @@
 package employees;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
-import org.flywaydb.core.Flyway;
+//import com.mysql.cj.jdbc.MysqlDataSource;
+//import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
+//import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
