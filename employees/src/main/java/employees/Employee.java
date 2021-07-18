@@ -3,8 +3,7 @@ package employees;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "employees")
@@ -42,11 +41,19 @@ public class Employee {
     @AttributeOverride(name = "daysTaken", column = @Column(name = "days"))
     private Set<VacationEntry> vacationBookings;
 
-    @ElementCollection
-    @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "emp_id"))
-    @MapKeyColumn(name = "phone_type")
-    @Column(name = "phone_number")
-    private Map<String, String> phoneNumbers;
+//    @ElementCollection
+//    @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "emp_id"))
+//    @MapKeyColumn(name = "phone_type")
+//    @Column(name = "phone_number")
+//    private Map<String, String> phoneNumbers;
+
+    @OneToOne
+    private ParkingPlace parkingPlace;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "employee")
+//    @OrderBy("type")
+    @OrderColumn(name = "pos")
+    private List<PhoneNumber> phoneNumbers;
 
     @PostPersist
     public void debugPersist() {
@@ -136,11 +143,35 @@ public class Employee {
         this.vacationBookings = vacationBookings;
     }
 
-    public Map<String, String> getPhoneNumbers() {
+//    public Map<String, String> getPhoneNumbers() {
+//        return phoneNumbers;
+//    }
+//
+//    public void setPhoneNumbers(Map<String, String> phoneNumbers) {
+//        this.phoneNumbers = phoneNumbers;
+//    }
+
+    public ParkingPlace getParkingPlace() {
+        return parkingPlace;
+    }
+
+    public void setParkingPlace(ParkingPlace parkingPlace) {
+        this.parkingPlace = parkingPlace;
+    }
+
+    public void addPhoneNumber(PhoneNumber phoneNumber) {
+        if (phoneNumbers == null) {
+            phoneNumbers = new ArrayList<>();
+        }
+        phoneNumbers.add(phoneNumber);
+        phoneNumber.setEmployee(this);
+    }
+
+    public List<PhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
     }
 
-    public void setPhoneNumbers(Map<String, String> phoneNumbers) {
+    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 
