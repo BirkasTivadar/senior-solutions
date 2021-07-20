@@ -1,16 +1,15 @@
 package meetingrooms;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
+@AllArgsConstructor
 public class MeetingRoomDao {
 
     private final EntityManagerFactory entityManagerFactory;
-
-    public MeetingRoomDao(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     public MeetingRoom save(String name, int width, int length) {
         MeetingRoom meetingRoom = new MeetingRoom(name, width, length);
@@ -55,6 +54,8 @@ public class MeetingRoomDao {
 
 //    List<MeetingRoom> getMeetingRoomsByPrefix(String nameOrPrefix);
 
+
+//    Bulk update-es megoldásra kicserélni
     public void deleteAll() {
         EntityManager em = entityManagerFactory.createEntityManager();
         List<MeetingRoom> meetingRooms = getMeetingRooms();

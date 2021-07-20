@@ -1,6 +1,7 @@
 package meetingrooms;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManagerFactory;
@@ -10,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MeetingRoomDaoTest {
+class MeetingRoomDaoIT {
 
     private MeetingRoomDao meetingRoomDao;
 
@@ -21,6 +22,7 @@ class MeetingRoomDaoTest {
     }
 
     @Test
+    @DisplayName("Save three meetingrooms then query all")
     void testSaveAndGetOrderedNames() {
 
         MeetingRoom nagyTargyalo = meetingRoomDao.save("Nagytárgyaló", 5, 8);
