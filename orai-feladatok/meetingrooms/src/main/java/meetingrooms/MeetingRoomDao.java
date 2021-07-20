@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @AllArgsConstructor
 public class MeetingRoomDao {
@@ -28,11 +30,15 @@ public class MeetingRoomDao {
                 .getResultList();
         em.close();
         return names;
-
     }
 
-    //    List<String> getEverySecondMeetingRoom();
-//
+    List<String> getEverySecondMeetingRoom() {
+        List<String> meetingRoomsNames = getMeetingroomsOrderedByName();
+        return IntStream.range(0, meetingRoomsNames.size()).
+                filter(i -> i % 2 != 0).
+                mapToObj(meetingRoomsNames::get).collect(Collectors.toList());
+    }
+
     List<MeetingRoom> getMeetingRooms() {
         EntityManager em = entityManagerFactory.createEntityManager();
         List<MeetingRoom> meetingRooms = em
@@ -55,7 +61,7 @@ public class MeetingRoomDao {
 //    List<MeetingRoom> getMeetingRoomsByPrefix(String nameOrPrefix);
 
 
-//    Bulk update-es megoldásra kicserélni
+    //    Bulk update-es megoldásra kicserélni
     public void deleteAll() {
         EntityManager em = entityManagerFactory.createEntityManager();
         List<MeetingRoom> meetingRooms = getMeetingRooms();
