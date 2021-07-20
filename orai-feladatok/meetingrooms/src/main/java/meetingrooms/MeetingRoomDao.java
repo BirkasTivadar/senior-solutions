@@ -32,13 +32,37 @@ public class MeetingRoomDao {
 
     }
 
-//    List<String> getEverySecondMeetingRoom();
+    //    List<String> getEverySecondMeetingRoom();
 //
-//    List<MeetingRoom> getMeetingRooms();
-//
-//    List<MeetingRoom> getExactMeetingRoomByName(String name);
-//
+    List<MeetingRoom> getMeetingRooms() {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<MeetingRoom> meetingRooms = em
+                .createQuery("select m from MeetingRoom m order by m.name", MeetingRoom.class)
+                .getResultList();
+        em.close();
+        return meetingRooms;
+    }
+
+    List<MeetingRoom> getExactMeetingRoomByName(String name) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<MeetingRoom> meetingRooms = em
+                .createQuery("select m from MeetingRoom m where m.name = :name", MeetingRoom.class)
+                .setParameter("name", name)
+                .getResultList();
+        em.close();
+        return meetingRooms;
+    }
+
 //    List<MeetingRoom> getMeetingRoomsByPrefix(String nameOrPrefix);
-//
-//    void deleteAll();
+
+    public void deleteAll() {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<MeetingRoom> meetingRooms = getMeetingRooms();
+        em.getTransaction().begin();
+        for (MeetingRoom meetingRoom : meetingRooms) {
+            em.remove(meetingRoom);
+        }
+        em.getTransaction().commit();
+        em.close();
+    }
 }
