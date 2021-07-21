@@ -239,4 +239,34 @@ public class EmployeeDaoTest {
         employeeDao.deleteEmployee(employee.getId());
     }
 
+//    @Test
+//    void testEmployeeWithAddress() {
+//        Employee employee = new Employee("John Doe");
+//
+//        Address address = new Address("H-1301", "Budapest", "Fő utca");
+//
+//        employee.setAddress(address);
+//        employeeDao.saveEmployee(employee);
+//
+//        Long id = employee.getId();
+//        Employee anotherEmployee = employeeDao.findEmployeeById(id);
+//
+//        assertEquals("H-1301", anotherEmployee.getAddress().getZip());
+//    }
+
+    @Test
+    void testEmployeeWithAddressAttributes() {
+        Employee employee = new Employee("John Doe");
+        employee.setZip("H-1301");
+        employee.setCity("Budapest");
+        employee.setLine1("Fő utca");
+
+        employeeDao.saveEmployee(employee);
+
+        Long id = employee.getId();
+        Employee another = employeeDao.findEmployeeById(id);
+
+        assertEquals("H-1301", another.getZip());
+    }
+
 }

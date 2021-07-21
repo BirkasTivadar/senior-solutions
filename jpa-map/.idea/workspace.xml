@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="906c2172-8ba8-42c0-9f94-154ca5e9579b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/map/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/map/Project.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/map/ProjectDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/map/ProjectDaoIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../employees/src/test/java/employees/EmployeeDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../employees/src/test/java/employees/EmployeeDaoTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="906c2172-8ba8-42c0-9f94-154ca5e9579b" name="Default Changelist" comment="Adatbázis programozás Java nyelven - JPA&#10;Entitások Mapekben&#10;videós gyakorlat" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,8 +88,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1626896734672</updated>
-      <workItem from="1626896736219" duration="1744000" />
+      <workItem from="1626896736219" duration="2247000" />
     </task>
+    <task id="LOCAL-00001" summary="Adatbázis programozás Java nyelven - JPA&#10;Entitások Mapekben&#10;videós gyakorlat">
+      <created>1626898590490</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1626898590490</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,5 +116,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Adatbázis programozás Java nyelven - JPA&#10;Entitások Mapekben&#10;videós gyakorlat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adatbázis programozás Java nyelven - JPA&#10;Entitások Mapekben&#10;videós gyakorlat" />
   </component>
 </project>
