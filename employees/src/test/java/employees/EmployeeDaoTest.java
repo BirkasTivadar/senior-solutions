@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 //import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,8 @@ public class EmployeeDaoTest {
 
     private EmployeeDao employeeDao;
 
+    private ParkingPlaceDao parkingPlaceDao;
+
     @BeforeEach
     void init() {
 //        EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -29,6 +32,8 @@ public class EmployeeDaoTest {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         employeeDao = new EmployeeDao(entityManagerFactory);
+        parkingPlaceDao = new ParkingPlaceDao(entityManagerFactory);
+
 
 //        MysqlDataSource dataSource = new MysqlDataSource();
 //        dataSource.setUrl("jdbc:mysql://localhost:3306/employees?useUnicode=true");
@@ -269,4 +274,63 @@ public class EmployeeDaoTest {
         assertEquals("H-1301", another.getZip());
     }
 
+    @Test
+    void testFindEmployeeByName() {
+        Employee employee = new Employee("John Doe");
+        employeeDao.saveEmployee(employee);
+
+        Employee another = employeeDao.findEmployeeByName("John Doe");
+        assertEquals("John Doe", another.getName());
+
+    }
+
+    @Test
+    void testPaging() {
+        for (int i = 100; i < 300; i++) {
+            Employee employee = new Employee("John Doe " + i);
+            employeeDao.saveEmployee(employee);
+        }
+
+        List<Employee> employees = employeeDao.listEmployees(50, 20);
+        assertEquals("John Doe 150", employees.get(0).getName());
+        assertEquals(20, employees.size());
+    }
+
+    @Test
+    void testFindNumber() {
+        Employee employee = new Employee("John Doe");
+        ParkingPlace parkingPlace = new ParkingPlace(101);
+        parkingPlaceDao.saveParkingPlace(parkingPlace);
+
+        employee.setParkingPlace(parkingPlace);
+        employeeDao.saveEmployee(employee);
+
+        int number = employeeDao.findParkingPlaceNumberByEmployeeName("John Doe");
+
+        assertEquals(101, number);
+    }
+
+    @Test
+    void testBaseData() {
+        Employee employee = new Employee("John Doe");
+        employeeDao.saveEmployee(employee);
+
+        List<Object[]> data = employeeDao.listEmployeeBaseData();
+        assertEquals(1, data.size());
+        assertEquals("John Doe", data.get(0)[1]);
+        System.out.println(Arrays.toString(data.get(0)));
+    }
+
+    @Test
+    void testDto() {
+        employeeDao.saveEmployee(new Employee("John Doe"));
+        employeeDao.saveEmployee(new Employee("Jane Doe"));
+
+        List<EmpBaseDataDto> data = employeeDao.ListEmployeeDto();
+
+        System.out.println(data);
+
+        assertEquals(2, data.size());
+        assertEquals("Jane Doe", data.get(0).getName());
+    }
 }

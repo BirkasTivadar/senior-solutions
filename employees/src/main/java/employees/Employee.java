@@ -9,6 +9,7 @@ import java.util.*;
 @Table(name = "employees")
 @SecondaryTable(name = "emp_addresses", pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
 //@IdClass(EmployeeId.class)
+@NamedQuery(name = "listEmployees", query = "select e from Employee e order by e.name")
 public class Employee {
 
     public enum EmployeeType {FULL_TIME, HALF_TIME}
@@ -16,10 +17,10 @@ public class Employee {
 //    @Id
 //    private String depName;
 
+    //    @GeneratedValue(generator = "Emp_Gen")
+//    @TableGenerator(name = "Emp_Gen", table = "emp_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @GeneratedValue(generator = "Emp_Gen")
-//    @TableGenerator(name = "Emp_Gen", table = "emp_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val")
     private Long id;
 
 
