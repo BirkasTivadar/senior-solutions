@@ -29,11 +29,11 @@ class EmployeeDaoTest {
 
 
     @Test
-    void testSaveWithEmptyName(){
+    void testSaveWithEmptyName() {
         Employee employee = new Employee("");
 
-    IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, ()-> employeeDao.saveEmployee(employee));
-    assertEquals("Name must be longer than 3 characters", iae.getMessage());
+        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () -> employeeDao.saveEmployee(employee));
+        assertEquals("Name must be longer than 3 characters", iae.getMessage());
     }
 
 }

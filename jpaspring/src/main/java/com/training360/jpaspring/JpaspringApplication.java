@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class JpaspringApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JpaspringApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(JpaspringApplication.class, args);
+    }
 
 }

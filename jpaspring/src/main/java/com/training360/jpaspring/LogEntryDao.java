@@ -13,8 +13,9 @@ public class LogEntryDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @Transactional
-    @Transactional(Transactional.TxType.REQUIRES_NEW) // A propagáció beállítása, amikor az employeeDao meghívja a logEntryDao-t akkor a logEntryDao egy új tranzakciót fog indítani
+    //    @Transactional
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    // A propagáció beállítása, amikor az employeeDao meghívja a logEntryDao-t akkor a logEntryDao egy új tranzakciót fog indítani
     public void save(LogEntry logEntry) {
         entityManager.persist(logEntry);
     }
