@@ -19,22 +19,13 @@ public class MovieService {
 
     private ModelMapper modelMapper;
 
-//    private AtomicLong idGenerator = new AtomicLong();
-
     private MoviesRepository repository;
-
-//    private List<Movie> movies = Collections.synchronizedList(new ArrayList<>());
-
-    public MovieService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
 
     public List<MovieDto> movieList() {
         return repository.findAll().stream()
                 .map(movie -> modelMapper.map(movie, MovieDto.class))
                 .toList();
     }
-
 
     public MovieDto createMovie(CreateMovieCommand command) {
         Movie movie = new Movie(command.getTitle());
