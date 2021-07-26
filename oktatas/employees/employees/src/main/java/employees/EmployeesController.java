@@ -34,7 +34,13 @@ public class EmployeesController {
         return employeesService.listEmployees(prefix);
     }
 
-    @GetMapping("/{id}")
+//    Ahhoz, hogy xml-ben is tudjunk elemek listáját lekérni, létre kell hoznunk az EmployeesDto burkolóosztályt
+//    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+//    public EmployeesDto listEmployees(@RequestParam Optional<String> prefix) {
+//        return new EmployeesDto(employeesService.listEmployees(prefix));
+//    }
+
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public EmployeeDto findEmployeeById(@PathVariable("id") long id) {
         return employeesService.findEmployeeById(id);
     }

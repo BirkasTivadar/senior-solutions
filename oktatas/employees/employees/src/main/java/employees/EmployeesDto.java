@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @XmlRootElement
-public class EmployeeDto {
+public class EmployeesDto {
 
-    private long id;
-
-    private String name;
+    private List<EmployeeDto> employees;
 }
