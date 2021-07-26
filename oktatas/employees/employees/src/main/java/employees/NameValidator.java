@@ -9,12 +9,12 @@ public class NameValidator implements ConstraintValidator<Name, String> {
     private int maxLength;
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s != null &&
-                !s.isBlank() &&
-                s.length() > 2 &&
-                s.length() <= maxLength &&
-                Character.isUpperCase(s.charAt(0))
+    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
+        return value != null &&
+                !value.isBlank() &&
+                value.length() > 2 &&
+                value.length() <= maxLength &&
+                Character.isUpperCase(value.charAt(0))
                 ;
     }
 
