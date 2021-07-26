@@ -27,8 +27,7 @@ public class Movie {
     @Column(name = "rating")
     private List<Integer> ratings;
 
-    public Movie(Long id, String title) {
-        this.id = id;
+    public Movie(String title) {
         this.title = title;
         this.ratings = new ArrayList<>();
     }
