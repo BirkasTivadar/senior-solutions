@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -17,5 +16,5 @@ public class AuthorDto {
 
     private String name;
 
-    private List<Book> books;
+    private List<BookDto> books;
 }

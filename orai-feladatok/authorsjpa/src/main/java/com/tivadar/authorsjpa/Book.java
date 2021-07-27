@@ -20,12 +20,13 @@ public class Book {
 
     private String isbn;
 
+    private String title;
+
     @ManyToOne
-    @JoinColumn(name = "author_id")
     private Author author;
 
-    public Book(String isbn, Author author) {
+    public Book(String isbn, String title) {
         this.isbn = isbn;
-        this.author = author;
+        this.title = title;
     }
 }

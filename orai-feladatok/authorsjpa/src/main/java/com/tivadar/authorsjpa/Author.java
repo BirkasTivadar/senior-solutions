@@ -23,7 +23,7 @@ public class Author {
     @Column(name = "author_name")
     private String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private List<Book> books;
 
     public Author(String name) {
@@ -33,5 +33,6 @@ public class Author {
 
     public void addBook(Book book) {
         books.add(book);
+        book.setAuthor(this);
     }
 }

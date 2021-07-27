@@ -11,7 +11,5 @@ public class AddBookCommand {
 
     private String isbn;
 
-    private Author author;
-
-
+    private String title;
 }

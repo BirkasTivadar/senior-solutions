@@ -1,7 +1,6 @@
 package com.tivadar.authorsjpa;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Slf4j
 @AllArgsConstructor
 public class AuthorService {
 
@@ -32,7 +30,8 @@ public class AuthorService {
     @Transactional
     public AuthorDto addBookToAuthor(long id, AddBookCommand command) {
         Author author = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found author this id"));
-        author.addBook(new Book(command.getIsbn(), command.getAuthor()));
+        Book book = new Book(command.getIsbn(), command.getTitle());
+        author.addBook(book);
         return modelMapper.map(author, AuthorDto.class);
     }
 

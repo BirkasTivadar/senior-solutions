@@ -12,9 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class BookDto {
 
-    private Long id;
-
     private String isbn;
 
-    private Author author;
+    private String title;
 }
