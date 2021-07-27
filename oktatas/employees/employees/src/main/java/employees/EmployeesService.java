@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,7 @@ public class EmployeesService {
 
     private ModelMapper modelMapper;
 
-    private EmployeesDao employeesDao;
+    private EmployeesRepository repository;
 
 //    addig kellett, amíg memóriában tároltuk az employeekat
 //    private AtomicLong idGenerator = new AtomicLong();
@@ -40,7 +41,7 @@ public class EmployeesService {
 //    }
 
     public List<EmployeeDto> listEmployees(Optional<String> prefix) {
-        return employeesDao.findAll().stream()
+        return repository.findAll().stream()
                 .map(e -> modelMapper.map(e, EmployeeDto.class))
                 .toList();
     }
@@ -55,29 +56,31 @@ public class EmployeesService {
 
 
     public EmployeeDto findEmployeeById(long id) {
-        return modelMapper.map(employeesDao.findById(id), EmployeeDto.class);
+        return modelMapper.map(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("employee not found")),
+                EmployeeDto.class);
     }
 
     public EmployeeDto createEmployeeCommand(CreateEmployeeCommand command) {
         Employee employee = new Employee(command.getName());
-        employeesDao.createEmployee(employee);
+        repository.save(employee);
         log.info("Employee has been created");
         log.debug("Employee has been created with name {}", command.getName());
         return modelMapper.map(employee, EmployeeDto.class);
     }
 
+    @Transactional
     public EmployeeDto updateEmployee(long id, UpdateEmployeeCommand command) {
-        Employee employee = new Employee(id, command.getName());
-        employeesDao.updateEmployee(employee);
+        Employee employee = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("employee not found"));
+        employee.setName(command.getName());
         return modelMapper.map(employee, EmployeeDto.class);
     }
 
     public void deleteEmployee(long id) {
-        employeesDao.deleteById(id);
+        repository.deleteById(id);
     }
 
     public void deleteAllEmployees() {
-        employeesDao.deleteAll();
+        repository.deleteAll();
     }
 //    adatbázisból dolgozva már nem kellett
 //    private Employee getEmployeeById(Long id) {
