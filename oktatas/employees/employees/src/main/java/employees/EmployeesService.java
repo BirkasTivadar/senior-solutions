@@ -1,5 +1,6 @@
 package employees;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 //import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class EmployeesService {
 
 //    ha lombokot használok, és kiteszem @Slf4j annotációt, akkor nem kell
@@ -21,19 +23,21 @@ public class EmployeesService {
 
     private ModelMapper modelMapper;
 
-    private AtomicLong idGenerator = new AtomicLong();
-
     private EmployeesDao employeesDao;
 
-    private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
-            new Employee(idGenerator.incrementAndGet(), "John Doe"),
-            new Employee(idGenerator.incrementAndGet(), "Jack Doe")
-    )));
+//    addig kellett, amíg memóriában tároltuk az employeekat
+//    private AtomicLong idGenerator = new AtomicLong();
+//
+//    private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
+//            new Employee(idGenerator.incrementAndGet(), "John Doe"),
+//            new Employee(idGenerator.incrementAndGet(), "Jack Doe")
+//    )));
 
-    public EmployeesService(ModelMapper modelMapper, EmployeesDao employeesDao) {
-        this.modelMapper = modelMapper;
-        this.employeesDao = employeesDao;
-    }
+//    lombok @AllArgsConstructor annotációjával kiváltottuk
+//    public EmployeesService(ModelMapper modelMapper, EmployeesDao employeesDao) {
+//        this.modelMapper = modelMapper;
+//        this.employeesDao = employeesDao;
+//    }
 
     public List<EmployeeDto> listEmployees(Optional<String> prefix) {
         return employeesDao.findAll().stream()
@@ -51,38 +55,36 @@ public class EmployeesService {
 
 
     public EmployeeDto findEmployeeById(long id) {
-        Employee employee = getEmployeeById(id);
-        return modelMapper.map(employee, EmployeeDto.class);
+        return modelMapper.map(employeesDao.findById(id), EmployeeDto.class);
     }
 
     public EmployeeDto createEmployeeCommand(CreateEmployeeCommand command) {
-        Employee employee = new Employee(idGenerator.incrementAndGet(), command.getName());
-        employees.add(employee);
+        Employee employee = new Employee(command.getName());
+        employeesDao.createEmployee(employee);
         log.info("Employee has been created");
         log.debug("Employee has been created with name {}", command.getName());
         return modelMapper.map(employee, EmployeeDto.class);
     }
 
     public EmployeeDto updateEmployee(long id, UpdateEmployeeCommand command) {
-        Employee employee = getEmployeeById(id);
-        employee.setName(command.getName());
+        Employee employee = new Employee(id, command.getName());
+        employeesDao.updateEmployee(employee);
         return modelMapper.map(employee, EmployeeDto.class);
     }
 
     public void deleteEmployee(long id) {
-        Employee employee = getEmployeeById(id);
-        employees.remove(employee);
-    }
-
-    private Employee getEmployeeById(Long id) {
-        return employees.stream()
-                .filter(e -> e.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new EmployeeNotFoundException(id));
+        employeesDao.deleteById(id);
     }
 
     public void deleteAllEmployees() {
-        idGenerator = new AtomicLong();
-        employees.clear();
+        employeesDao.deleteAll();
     }
+//    adatbázisból dolgozva már nem kellett
+//    private Employee getEmployeeById(Long id) {
+//        return employees.stream()
+//                .filter(e -> e.getId() == id)
+//                .findFirst()
+//                .orElseThrow(() -> new EmployeeNotFoundException(id));
+//    }
+
 }
