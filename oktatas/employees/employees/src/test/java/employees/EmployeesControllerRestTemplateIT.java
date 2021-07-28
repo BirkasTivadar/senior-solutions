@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
@@ -15,18 +16,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql(statements = "delete from employees")
 public class EmployeesControllerRestTemplateIT {
 
     @Autowired
     TestRestTemplate template;
 
-    @Autowired
-    EmployeesService employeesService;
-
-    @BeforeEach
-    void init() {
-        employeesService.deleteAllEmployees();
-    }
+//    mivel van sql annotáció, megfelelő utasítással, már nem kellenek
+//    @Autowired
+//    EmployeesService employeesService;
+//
+//    @BeforeEach
+//    void init() {
+//        employeesService.deleteAllEmployees();
+//    }
 
     //    @Test
     @RepeatedTest(2)
