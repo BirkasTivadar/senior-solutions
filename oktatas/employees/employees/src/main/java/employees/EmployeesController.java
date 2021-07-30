@@ -42,6 +42,7 @@ public class EmployeesController {
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public EmployeeDto findEmployeeById(@PathVariable("id") long id) {
+
         return employeesService.findEmployeeById(id);
     }
 
