@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class EmployeesService {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
             new Employee(1L, "John Doe"),
@@ -22,9 +22,8 @@ public class EmployeesService {
     }
 
     public List<EmployeeDTO> listEmployees() {
-        List<EmployeeDTO> employeeDTOS = employees.stream()
+        return employees.stream()
                 .map(employee -> modelMapper.map(employee, EmployeeDTO.class)).toList();
-        return employeeDTOS;
     }
 
 }
