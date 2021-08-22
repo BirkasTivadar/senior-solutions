@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeesService {
@@ -21,9 +22,16 @@ public class EmployeesService {
         this.modelMapper = modelMapper;
     }
 
-    public List<EmployeeDTO> listEmployees() {
+    public List<EmployeeDTO> listEmployees(Optional<String> prefix) {
         return employees.stream()
+                .filter(employee -> prefix.isEmpty() || employee.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
                 .map(employee -> modelMapper.map(employee, EmployeeDTO.class)).toList();
     }
 
+    public EmployeeDTO findEmployeeById(Long id) {
+        return modelMapper.map(employees.stream()
+                        .filter(employee -> employee.getId() == id)
+                        .findAny().orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id)),
+                EmployeeDTO.class);
+    }
 }
