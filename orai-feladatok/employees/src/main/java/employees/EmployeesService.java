@@ -7,15 +7,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class EmployeesService {
 
     private final ModelMapper modelMapper;
 
+    private AtomicLong idGenerator = new AtomicLong();
+
     private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
-            new Employee(1L, "John Doe"),
-            new Employee(2L, "Jack Doe")
+            new Employee(idGenerator.incrementAndGet(), "John Doe"),
+            new Employee(idGenerator.incrementAndGet(), "Jack Doe")
     )));
 
     public EmployeesService(ModelMapper modelMapper) {
@@ -29,9 +32,31 @@ public class EmployeesService {
     }
 
     public EmployeeDTO findEmployeeById(Long id) {
-        return modelMapper.map(employees.stream()
-                        .filter(employee -> employee.getId() == id)
-                        .findAny().orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id)),
-                EmployeeDTO.class);
+        return modelMapper.map(findById(id), EmployeeDTO.class);
     }
+
+    public EmployeeDTO createEmployee(CreateEmployeeCommand command) {
+        Employee employee = new Employee(idGenerator.incrementAndGet(), command.getName());
+        employees.add(employee);
+        return modelMapper.map(employee, EmployeeDTO.class);
+    }
+
+    public EmployeeDTO updateEmployee(Long id, UpdateEmployeeCommand command) {
+        Employee employee = findById(id);
+        employee.setName(command.getName());
+        return modelMapper.map(employee, EmployeeDTO.class);
+    }
+
+    public void deleteEmployee(Long id) {
+        Employee employee = findById(id);
+        employees.remove(employee);
+    }
+
+    private Employee findById(Long id) {
+        return employees.stream()
+                .filter(e -> e.getId() == id)
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("Employee not found" + id));
+    }
+
+
 }
