@@ -55,7 +55,8 @@ public class EmployeesService {
     private Employee findById(Long id) {
         return employees.stream()
                 .filter(e -> e.getId() == id)
-                .findFirst().orElseThrow(() -> new IllegalArgumentException("Employee not found" + id));
+//                .findFirst().orElseThrow(() -> new IllegalArgumentException("Employee not found: " + id));
+                .findFirst().orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
 
