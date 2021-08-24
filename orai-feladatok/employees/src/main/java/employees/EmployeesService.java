@@ -52,6 +52,11 @@ public class EmployeesService {
         employees.remove(employee);
     }
 
+    public void deleteAllEmployees() {
+        idGenerator = new AtomicLong();
+        employees.clear();
+    }
+
     private Employee findById(Long id) {
         return employees.stream()
                 .filter(e -> e.getId() == id)
