@@ -1,5 +1,6 @@
 package employees;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
+@Slf4j
 public class EmployeesService {
 
     private final ModelMapper modelMapper;
@@ -38,6 +40,8 @@ public class EmployeesService {
     public EmployeeDTO createEmployee(CreateEmployeeCommand command) {
         Employee employee = new Employee(idGenerator.incrementAndGet(), command.getName());
         employees.add(employee);
+        log.info("Employee has been created");
+        log.debug("Employee has been created with name {}", command.getName());
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 

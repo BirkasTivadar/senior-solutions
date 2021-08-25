@@ -8,7 +8,9 @@ class HelloServiceTest {
 
     @Test
     void sayHello() {
-        HelloService helloService = new HelloService();
+        HelloProperties helloProperties = new HelloProperties();
+        helloProperties.setMessage("Hello");
+        HelloService helloService = new HelloService(helloProperties);
 
         String message = helloService.sayHello();
 
