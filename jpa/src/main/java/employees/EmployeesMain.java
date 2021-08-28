@@ -9,12 +9,16 @@ public class EmployeesMain {
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("pu");
 
-        EntityManager en = factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
 
-        en.getTransaction().begin();
+        em.getTransaction().begin();
 
-        en.persist(new Employee("John Doe"));
+        em.persist(new Employee("John Doe"));
 
-        en.getTransaction().commit();
+        em.getTransaction().commit();
+
+        em.close();
+
+        factory.close();
     }
 }

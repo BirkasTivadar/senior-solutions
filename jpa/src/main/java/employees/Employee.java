@@ -1,7 +1,6 @@
 package employees;
 
 import javax.persistence.*;
-import java.lang.annotation.Target;
 
 @Entity
 @Table(name = "employees")
