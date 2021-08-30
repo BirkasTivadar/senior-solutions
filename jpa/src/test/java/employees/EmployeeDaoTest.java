@@ -38,7 +38,7 @@ class EmployeeDaoTest {
         Employee employee = new Employee("John Doe");
         employeeDao.save(employee);
 
-        long id = employee.getId();
+        Long id = employee.getId();
 
         Employee another = employeeDao.findById(id);
 
@@ -67,7 +67,9 @@ class EmployeeDaoTest {
 
         employeeDao.changeName(id, "Jack Doe");
 
-        assertEquals("Jack Doe", employeeDao.findById(id).getName());
+        Employee modifiedEmployee = employeeDao.findById(id);
+
+        assertEquals("Jack Doe", modifiedEmployee.getName());
     }
 
     @Test
@@ -86,10 +88,14 @@ class EmployeeDaoTest {
 
     @Test
     void testEmployeeWithAttributes() {
-        employeeDao.save(new Employee("John Doe", Employee.EmployeeType.HALF_TIME, LocalDate.of(2000, 1, 1)));
+        for (int i = 0; i < 10; i++) {
+            employeeDao.save(new Employee("John Doe", Employee.EmployeeType.HALF_TIME, LocalDate.of(2000, 1, 1)));
+        }
 
         Employee employee = employeeDao.listAll().get(0);
 
         assertEquals(LocalDate.of(2000, 1, 1), employee.getDateOfBirth());
     }
+
+
 }

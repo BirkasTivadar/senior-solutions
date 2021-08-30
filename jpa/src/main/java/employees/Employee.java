@@ -3,12 +3,18 @@ package employees;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+//@IdClass(EmployeeId.class)
 @Entity
 @Table(name = "employees")
 public class Employee {
 
     public enum EmployeeType {FULL_TIME, HALF_TIME}
 
+//    @Id
+//    private String depName;
+
+    //    @GeneratedValue(generator = "Emp_Gen")
+//    @TableGenerator(name = "Emp_Gen", table = "emp_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val",allocationSize = 100)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +33,12 @@ public class Employee {
     public Employee(String name) {
         this.name = name;
     }
+
+//    public Employee(String depName, Long id, String name) {
+//        this.depName = depName;
+//        this.id = id;
+//        this.name = name;
+//    }
 
     public Employee(String name, EmployeeType employeeType, LocalDate dateOfBirth) {
         this.name = name;
@@ -65,6 +77,14 @@ public class Employee {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+//    public String getDepName() {
+//        return depName;
+//    }
+//
+//    public void setDepName(String depName) {
+//        this.depName = depName;
+//    }
 
     @Override
     public String toString() {
