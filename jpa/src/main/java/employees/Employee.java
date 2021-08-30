@@ -27,6 +27,11 @@ public class Employee {
 
     private LocalDate dateOfBirth;
 
+    @PostPersist
+    public void debugPersist() {
+        System.out.println(name + " " + id);
+    }
+
     public Employee() {
     }
 

@@ -93,9 +93,43 @@ class EmployeeDaoTest {
         }
 
         Employee employee = employeeDao.listAll().get(0);
-
         assertEquals(LocalDate.of(2000, 1, 1), employee.getDateOfBirth());
     }
 
+    @Test
+    void testSaveEmployeeChangeState() {
+        Employee employee = new Employee("John Doe");
+        employeeDao.save(employee);
+
+        employee.setName("Jack Doe");
+
+        Employee modifiedEmployee = employeeDao.findById(employee.getId());
+
+        assertEquals("John Doe", modifiedEmployee.getName());
+        assertFalse(employee == modifiedEmployee);
+    }
+
+    //    merge metódus használata nem javasolt
+    @Test
+    void testMerge() {
+        Employee employee = new Employee("John Doe");
+        employeeDao.save(employee);
+
+        employee.setName("Jack Doe");
+        employeeDao.updateEmployee(employee);
+
+        Employee modifiedEmployee = employeeDao.findById(employee.getId());
+
+        assertEquals("Jack Doe", modifiedEmployee.getName());
+    }
+
+    @Test
+    void testFlush() {
+        for (int i = 0; i < 10; i++) {
+            employeeDao.save(new Employee("John Doe" + i));
+        }
+
+        employeeDao.updateEmployeeNames();
+    }
 
 }

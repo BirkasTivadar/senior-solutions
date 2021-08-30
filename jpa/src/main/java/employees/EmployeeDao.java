@@ -52,4 +52,33 @@ public class EmployeeDao {
         em.getTransaction().commit();
         em.close();
     }
+
+    //    merge metódus nem javasolt
+    public void updateEmployee(Employee employee) {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        Employee merged = em.merge(employee);
+
+        merged.setName("***" + employee.getName());
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void updateEmployeeNames() {
+        EntityManager em = factory.createEntityManager();
+        List<Employee> employees = em.createQuery("select e from Employee e order by e.name", Employee.class)
+                .getResultList();
+
+        em.getTransaction().begin();
+
+        for (Employee employee : employees) {
+            employee.setName(employee.getName() + "***");
+            System.out.println("Módosítva");
+        }
+
+        em.flush();
+
+        em.getTransaction().commit();
+        em.close();
+    }
 }
