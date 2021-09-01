@@ -120,7 +120,7 @@ class EmployeeDaoTest {
 
         Employee modifiedEmployee = employeeDao.findById(employee.getId());
 
-        assertEquals("Jack Doe", modifiedEmployee.getName());
+        assertEquals("***Jack Doe", modifiedEmployee.getName());
     }
 
     @Test
