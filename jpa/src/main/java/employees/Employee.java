@@ -7,6 +7,7 @@ import java.util.*;
 //@IdClass(EmployeeId.class)
 @Entity
 @Table(name = "employees")
+@SecondaryTable(name = "emp_addresses", pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
 public class Employee {
 
     public enum EmployeeType {FULL_TIME, HALF_TIME}
@@ -56,6 +57,18 @@ public class Employee {
 
     @ManyToMany(mappedBy = "employees")
     private Set<Project> projects = new HashSet<>();
+
+    @Column(table = "emp_addresses")
+    private String zip;
+
+    @Column(table = "emp_addresses")
+    private String city;
+
+    @Column(table = "emp_addresses")
+    private String line;
+
+//   @Embedded
+//   private Address address;
 
 //    @PostPersist
 //    public void debugPersist() {
@@ -168,6 +181,38 @@ public class Employee {
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
+    }
+
+    //    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     //    public String getDepName() {
 //        return depName;
