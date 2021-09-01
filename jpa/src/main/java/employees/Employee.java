@@ -54,6 +54,9 @@ public class Employee {
     @OrderColumn(name = "pos")
     private List<PhoneNumber> phoneNumbers;
 
+    @ManyToMany(mappedBy = "employees")
+    private Set<Project> projects = new HashSet<>();
+
 //    @PostPersist
 //    public void debugPersist() {
 //        System.out.println(name + " " + id);
@@ -156,6 +159,14 @@ public class Employee {
         }
         phoneNumbers.add(phoneNumber);
         phoneNumber.setEmployee(this);
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     //    public String getDepName() {
