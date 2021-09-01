@@ -29,7 +29,7 @@ public class EmployeeDao {
 
     public Employee findEmployeeByIdWithNicknames(long id) {
         EntityManager em = factory.createEntityManager();
-        Employee employee = em.createQuery("select e from Employee e join fetch e.nicknames where id = :id", Employee.class)
+        Employee employee = em.createQuery("select e from Employee e join fetch e.nicknames where e.id = :id", Employee.class)
                 .setParameter("id", id)
                 .getSingleResult();
         em.close();
@@ -94,7 +94,7 @@ public class EmployeeDao {
     public Employee findEmployeeByIdWithNicknamesVacations(Long id) {
         EntityManager em = factory.createEntityManager();
         Employee employee = em
-                .createQuery("select e from Employee e join fetch e.vacationBookings where id = :id", Employee.class)
+                .createQuery("select e from Employee e join fetch e.vacationBookings where e.id = :id", Employee.class)
                 .setParameter("id", id)
                 .getSingleResult();
         em.close();
@@ -104,10 +104,21 @@ public class EmployeeDao {
     public Employee findEmployeeByIdWithPhoneNumbers(Long id) {
         EntityManager em = factory.createEntityManager();
         Employee employee = em
-                .createQuery("select e from Employee e join fetch e.phoneNumbers where id = :id", Employee.class)
+                .createQuery("select e from Employee e join fetch e.phoneNumbers where e.id = :id", Employee.class)
                 .setParameter("id", id)
                 .getSingleResult();
         em.close();
         return employee;
+    }
+
+    public void addPhoneNumber(Long id, PhoneNumber phoneNumber) {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        Employee employee = em.getReference(Employee.class, id);
+        employee.addPhoneNumber(phoneNumber);
+//        phoneNumber.setEmployee(employee);
+//        em.persist(phoneNumber);
+        em.getTransaction().commit();
+        em.close();
     }
 }

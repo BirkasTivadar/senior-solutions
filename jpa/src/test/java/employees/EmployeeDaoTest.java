@@ -11,7 +11,6 @@ import javax.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -156,24 +155,64 @@ class EmployeeDaoTest {
 
         Employee anotherEmployee = employeeDao.findEmployeeByIdWithNicknamesVacations(employee.getId());
 
-        System.out.println(anotherEmployee.getVacationBookings());
         assertEquals(2, anotherEmployee.getVacationBookings().size());
     }
 
+//    @Test
+//    void testPhoneNumbers() {
+//        Employee employee = new Employee("John Doe");
+//        employee.setPhoneNumbers(Map.of(
+//                "home", "1234",
+//                "work", "4321"
+//        ));
+//
+//        employeeDao.save(employee);
+//
+//        Employee anotherEmployee = employeeDao.findEmployeeByIdWithPhoneNumbers(employee.getId());
+//
+//        assertEquals("1234", anotherEmployee.getPhoneNumbers().get("home"));
+//        assertEquals("4321", anotherEmployee.getPhoneNumbers().get("work"));
+//    }
+
     @Test
-    void testPhoneNumbers() {
+    void testPhoneNumber() {
+        PhoneNumber phoneNumberHome = new PhoneNumber("home", "1234");
+        PhoneNumber phoneNumberWork = new PhoneNumber("work", "4321");
+
         Employee employee = new Employee("John Doe");
-        employee.setPhoneNumbers(Map.of(
-                "home", "1234",
-                "work", "4321"
-        ));
+        employee.addPhoneNumber(phoneNumberWork);
+        employee.addPhoneNumber(phoneNumberHome);
 
         employeeDao.save(employee);
 
         Employee anotherEmployee = employeeDao.findEmployeeByIdWithPhoneNumbers(employee.getId());
 
-        assertEquals("1234", anotherEmployee.getPhoneNumbers().get("home"));
-        assertEquals("4321", anotherEmployee.getPhoneNumbers().get("work"));
+        assertEquals(2, anotherEmployee.getPhoneNumbers().size());
+        assertEquals("4321", anotherEmployee.getPhoneNumbers().get(0).getNumber());
+    }
+
+    @Test
+    void testAddPhoneNumber() {
+        Employee employee = new Employee("John Doe");
+        employeeDao.save(employee);
+
+        PhoneNumber phoneNumber = new PhoneNumber("home", "1111");
+
+        employeeDao.addPhoneNumber(employee.getId(), phoneNumber);
+
+        Employee anotherEmployee = employeeDao.findEmployeeByIdWithPhoneNumbers(employee.getId());
+
+        assertEquals("1111", anotherEmployee.getPhoneNumbers().get(0).getNumber());
+    }
+
+    @Test
+    public void testEmployee() {
+        Employee employee = new Employee("John Doe");
+        employee.addPhoneNumber(new PhoneNumber("home", "1111"));
+        employee.addPhoneNumber(new PhoneNumber("work", "2222"));
+        employeeDao.save(employee);
+
+        employeeDao.delete(employee.getId());
     }
 
 }
