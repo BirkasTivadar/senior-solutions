@@ -115,9 +115,8 @@ public class EmployeeDao {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         Employee employee = em.getReference(Employee.class, id);
-        employee.addPhoneNumber(phoneNumber);
-//        phoneNumber.setEmployee(employee);
-//        em.persist(phoneNumber);
+        phoneNumber.setEmployee(employee);
+        em.persist(phoneNumber);
         em.getTransaction().commit();
         em.close();
     }

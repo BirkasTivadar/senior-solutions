@@ -53,7 +53,7 @@ public class Employee {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "employee")
 //    @OrderBy("type")
     @OrderColumn(name = "pos")
-    private List<PhoneNumber> phoneNumbers;
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "employees")
     private Set<Project> projects = new HashSet<>();
@@ -167,9 +167,6 @@ public class Employee {
     }
 
     public void addPhoneNumber(PhoneNumber phoneNumber) {
-        if (phoneNumbers == null) {
-            phoneNumbers = new ArrayList<>();
-        }
         phoneNumbers.add(phoneNumber);
         phoneNumber.setEmployee(this);
     }
