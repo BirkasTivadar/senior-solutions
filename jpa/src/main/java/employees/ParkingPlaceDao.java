@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 
 public class ParkingPlaceDao {
 
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
     public ParkingPlaceDao(EntityManagerFactory factory) {
         this.factory = factory;

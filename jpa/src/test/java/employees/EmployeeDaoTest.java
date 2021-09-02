@@ -111,7 +111,7 @@ class EmployeeDaoTest {
         Employee modifiedEmployee = employeeDao.findById(employee.getId());
 
         assertEquals("John Doe", modifiedEmployee.getName());
-        assertFalse(employee == modifiedEmployee);
+        assertNotSame(employee, modifiedEmployee);
     }
 
     //    merge metódus használata nem javasolt

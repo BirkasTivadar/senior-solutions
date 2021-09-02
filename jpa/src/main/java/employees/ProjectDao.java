@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 
 public class ProjectDao {
 
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
     public ProjectDao(EntityManagerFactory factory) {
         this.factory = factory;
