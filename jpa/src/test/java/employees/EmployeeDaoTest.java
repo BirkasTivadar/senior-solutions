@@ -301,4 +301,31 @@ class EmployeeDaoTest {
         assertEquals("Jane Doe", data.get(0).getName());
     }
 
+    @Test
+    void testUpdateToType() {
+        employeeDao.save(new Employee("John Doe", Employee.EmployeeType.FULL_TIME, LocalDate.of(1980, 1, 1)));
+        employeeDao.save(new Employee("Jack Doe", Employee.EmployeeType.FULL_TIME, LocalDate.of(1990, 1, 1)));
+        employeeDao.save(new Employee("Jane Doe", Employee.EmployeeType.FULL_TIME, LocalDate.of(2000, 1, 1)));
+
+        employeeDao.updateToType(LocalDate.of(1985, 1, 1), Employee.EmployeeType.HALF_TIME);
+
+        List<Employee> employees = employeeDao.listAll();
+
+        assertEquals(Employee.EmployeeType.HALF_TIME, employees.get(0).getEmployeeType());
+        assertEquals(Employee.EmployeeType.HALF_TIME, employees.get(1).getEmployeeType());
+        assertEquals(Employee.EmployeeType.FULL_TIME, employees.get(2).getEmployeeType());
+    }
+
+    @Test
+    void testDeleteWithoutType() {
+        employeeDao.save(new Employee("John Doe", Employee.EmployeeType.FULL_TIME, LocalDate.of(1980, 1, 1)));
+        employeeDao.save(new Employee("Jack Doe", null, LocalDate.of(1990, 1, 1)));
+        employeeDao.save(new Employee("Jane Doe", Employee.EmployeeType.FULL_TIME, LocalDate.of(2000, 1, 1)));
+
+        employeeDao.deleteWithoutType();
+
+        List<Employee> employees = employeeDao.listAll();
+
+        assertEquals(2, employees.size());
+    }
 }

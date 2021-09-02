@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.List;
 
 public class EmployeeDao {
@@ -182,5 +183,25 @@ public class EmployeeDao {
                 .getResultList();
         em.close();
         return data;
+    }
+
+    public void updateToType(LocalDate start, Employee.EmployeeType type) {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.createQuery("update Employee e set e.employeeType = :type where e.dateOfBirth >= :start")
+                .setParameter("type", type)
+                .setParameter("start", start)
+                .executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void deleteWithoutType() {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.createQuery("delete Employee e where e.employeeType is null")
+                .executeUpdate();
+        em.getTransaction().commit();
+        em.close();
     }
 }
