@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeDaoTest {
 
     private EmployeeDao employeeDao;
+
+    private ParkingPlaceDao parkingPlaceDao;
 
     @BeforeEach
     void init() {
@@ -32,6 +35,7 @@ class EmployeeDaoTest {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("pu");
         employeeDao = new EmployeeDao(factory);
+        parkingPlaceDao = new ParkingPlaceDao(factory);
     }
 
     @Test
@@ -238,6 +242,63 @@ class EmployeeDaoTest {
         Employee anotherEmployee = employeeDao.findById(employee.getId());
 
         assertEquals("H-1301", anotherEmployee.getZip());
+    }
+
+    @Test
+    void testFindEmployeeByName() {
+        employeeDao.save(new Employee("John Doe"));
+
+        Employee employee = employeeDao.findEmployeeByName("John Doe");
+        assertEquals("John Doe", employee.getName());
+    }
+
+    @Test
+    void testPaging() {
+        for (int i = 100; i < 300; i++) {
+            Employee employee = new Employee("John Doe " + i);
+            employeeDao.save(employee);
+        }
+
+        List<Employee> employees = employeeDao.listEmployees(50, 20);
+
+        assertEquals("John Doe 150", employees.get(0).getName());
+        assertEquals(20, employees.size());
+    }
+
+    @Test
+    void testFindParkingPlaceNumber() {
+        Employee employee = new Employee("John Doe");
+        ParkingPlace parkingPlace = new ParkingPlace(101);
+        parkingPlaceDao.saveParkingPlace(parkingPlace);
+        employee.setParkingPlace(parkingPlace);
+        employeeDao.save(employee);
+
+        int number = employeeDao.findParkingPlaceNumberByEmployeeName("John Doe");
+        assertEquals(101, number);
+    }
+
+    @Test
+    void testBaseData() {
+        Employee employee = new Employee("John Doe");
+        employeeDao.save(employee);
+
+        List<Object[]> data = employeeDao.listEmployeeBaseData();
+        System.out.println(Arrays.toString(data.get(0)));
+
+        assertEquals(1, data.size());
+        assertEquals("John Doe", data.get(0)[1]);
+    }
+
+    @Test
+    void testDto() {
+        employeeDao.save(new Employee("John Doe"));
+        employeeDao.save(new Employee("Jane Doe"));
+
+        List<EmpBaseDataDto> data = employeeDao.listEmployeeDto();
+
+        System.out.println(data);
+        assertEquals(2, data.size());
+        assertEquals("Jane Doe", data.get(0).getName());
     }
 
 }
