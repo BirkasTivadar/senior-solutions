@@ -6,7 +6,7 @@ GET http://localhost:8080/api/employees
 Accept: application/json
 
 ###
-GET http://localhost:8080/api/employees/3
+GET http://localhost:8080/api/employees/2
 Accept: application/json
 
 ###
@@ -15,11 +15,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Jane Doe"
+  "name": "Jack Doe"
 }
 
 ###
-PUT http://localhost:8080/api/employees/3
+PUT http://localhost:8080/api/employees/2
 Content-Type: application/json
 Accept: application/json
 
@@ -28,7 +28,12 @@ Accept: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/employees/3
+DELETE http://localhost:8080/api/employees/1
+
+###
+DELETE http://localhost:8080/api/employees/
+
+
 
 ### Validation
 POST http://localhost:8080/api/employees
