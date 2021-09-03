@@ -13,11 +13,11 @@ public class EmployeeDao {
     private EntityManager entityManager;
 
     @Transactional
-    public void saveEmployee(Employee employee){
+    public void saveEmployee(Employee employee) {
         entityManager.persist(employee);
     }
 
-    public Employee findEmployeeByName(String name){
+    public Employee findEmployeeByName(String name) {
         return entityManager.createQuery("select e from Employee e where e.name = :name", Employee.class)
                 .setParameter("name", name)
                 .getSingleResult();
