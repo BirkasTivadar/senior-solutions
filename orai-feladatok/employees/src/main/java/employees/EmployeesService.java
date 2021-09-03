@@ -5,11 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 @Slf4j
@@ -18,9 +16,11 @@ public class EmployeesService {
 
     private final ModelMapper modelMapper;
 
+    private EmployeesRepository repository;
+
 //    private AtomicLong idGenerator = new AtomicLong();
 
-    private EmployeesDao employeesDao;
+//    private EmployeesDao employeesDao;
 
 //    private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
 //            new Employee(idGenerator.incrementAndGet(), "John Doe"),
@@ -33,9 +33,13 @@ public class EmployeesService {
 //    }
 
     public List<EmployeeDTO> listEmployees(Optional<String> prefix) {
-        return employeesDao.findAll().stream()
+        return repository.findAll().stream()
                 .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
                 .toList();
+
+//        return employeesDao.findAll().stream()
+//.map(employee -> modelMapper.map(employee, EmployeeDTO.class))
+//                .toList();
 
 //        return employees.stream()
 //                .filter(employee -> prefix.isEmpty() || employee.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
@@ -43,13 +47,17 @@ public class EmployeesService {
     }
 
     public EmployeeDTO findEmployeeById(Long id) {
-        return modelMapper.map(employeesDao.findById(id), EmployeeDTO.class);
+        return modelMapper.map(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("employee not found " + id)),
+                EmployeeDTO.class);
+//        return modelMapper.map(employeesDao.findById(id), EmployeeDTO.class);
 //        return modelMapper.map(findById(id), EmployeeDTO.class);
     }
 
     public EmployeeDTO createEmployee(CreateEmployeeCommand command) {
         Employee employee = new Employee(command.getName());
-        employeesDao.createEmployee(employee);
+        repository.save(employee);
+//        Employee employee = new Employee(command.getName());
+//        employeesDao.createEmployee(employee);
 //        Employee employee = new Employee(idGenerator.incrementAndGet(), command.getName());
 //        employees.add(employee);
         log.info("Employee has been created");
@@ -57,18 +65,23 @@ public class EmployeesService {
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 
+    @Transactional
     public EmployeeDTO updateEmployee(Long id, UpdateEmployeeCommand command) {
-        Employee employee = new Employee(id, command.getName());
-        employeesDao.updateEmployee(employee);
+        Employee employee = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("employee not found " + id));
+        employee.setName(command.getName());
+//        Employee employee = new Employee(id, command.getName());
+//        employeesDao.updateEmployee(employee);
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 
     public void deleteEmployee(Long id) {
-        employeesDao.deleteById(id);
+        repository.deleteById(id);
+//        employeesDao.deleteById(id);
     }
 
     public void deleteAllEmployees() {
-        employeesDao.deleteAll();
+        repository.deleteAll();
+//        employeesDao.deleteAll();
     }
 
 //    private Employee findById(Long id) {
