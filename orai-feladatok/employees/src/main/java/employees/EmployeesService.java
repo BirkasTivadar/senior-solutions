@@ -18,19 +18,26 @@ public class EmployeesService {
 
     private AtomicLong idGenerator = new AtomicLong();
 
+    private EmployeesDao employeesDao;
+
     private List<Employee> employees = Collections.synchronizedList(new ArrayList<>(List.of(
             new Employee(idGenerator.incrementAndGet(), "John Doe"),
             new Employee(idGenerator.incrementAndGet(), "Jack Doe")
     )));
 
-    public EmployeesService(ModelMapper modelMapper) {
+    public EmployeesService(ModelMapper modelMapper, EmployeesDao employeesDao) {
         this.modelMapper = modelMapper;
+        this.employeesDao = employeesDao;
     }
 
     public List<EmployeeDTO> listEmployees(Optional<String> prefix) {
-        return employees.stream()
-                .filter(employee -> prefix.isEmpty() || employee.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
-                .map(employee -> modelMapper.map(employee, EmployeeDTO.class)).toList();
+        return employeesDao.findAll().stream()
+                .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
+                .toList();
+
+//        return employees.stream()
+//                .filter(employee -> prefix.isEmpty() || employee.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
+//                .map(employee -> modelMapper.map(employee, EmployeeDTO.class)).toList();
     }
 
     public EmployeeDTO findEmployeeById(Long id) {
