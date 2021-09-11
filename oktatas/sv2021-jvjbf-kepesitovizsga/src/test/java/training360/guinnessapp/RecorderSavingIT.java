@@ -9,20 +9,20 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 //import training360.guinnessapp.dto.RecorderCreateCommand;
 //import training360.guinnessapp.dto.RecorderDto;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(statements = {"delete from world_record", "delete from recorder"})
-public class RecorderSavingIT {
-
-    @Autowired
-    TestRestTemplate template;
-
+//
+//import java.time.LocalDate;
+//import java.util.List;
+//import java.util.Map;
+//
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@Sql(statements = {"delete from world_record", "delete from recorder"})
+//public class RecorderSavingIT {
+//
+//    @Autowired
+//    TestRestTemplate template;
+//
 //    @Test
 //    void test_saveSuccessful() {
 //        RecorderCreateCommand inputCommand = new RecorderCreateCommand("Ben", LocalDate.of(1999, 9, 9));
@@ -47,4 +47,4 @@ public class RecorderSavingIT {
 //        assertEquals(Status.BAD_REQUEST, problem.getStatus());
 //        assertEquals("must be in the past", (((List<Map<String, String>>) problem.getParameters().get("violations")).get(0)).get("message"));
 //    }
-}
+//}
