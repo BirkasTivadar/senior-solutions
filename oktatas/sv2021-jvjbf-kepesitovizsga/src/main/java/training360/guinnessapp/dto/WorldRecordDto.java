@@ -3,7 +3,6 @@ package training360.guinnessapp.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import training360.guinnessapp.Recorder;
 
 import java.time.LocalDate;
 
@@ -22,7 +21,7 @@ public class WorldRecordDto {
 
     private LocalDate dateOfRecord;
 
-    private Recorder recorder;
+    private RecorderDto recorder;
 
     public String getRecorderName() {
         return recorder.getName();

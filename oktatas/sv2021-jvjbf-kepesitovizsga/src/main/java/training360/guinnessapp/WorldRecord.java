@@ -1,8 +1,6 @@
 package training360.guinnessapp;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,6 +25,8 @@ public class WorldRecord {
     private LocalDate dateOfRecord;
 
     @OneToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Recorder recorder;
 
     public WorldRecord(String description, Double value, String unitOfMeasure, LocalDate dateOfRecord, Recorder recorder) {

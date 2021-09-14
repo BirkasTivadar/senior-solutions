@@ -16,4 +16,6 @@ public class RecorderDto {
     private String name;
 
     private LocalDate dateOfBirth;
+
+    private WorldRecordDto worldRecord;
 }

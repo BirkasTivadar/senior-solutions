@@ -23,6 +23,9 @@ public class Recorder {
 
     private LocalDate dateOfBirth;
 
+    @OneToOne(mappedBy = "recorder")
+    private WorldRecord worldRecord;
+
     public Recorder(String name, LocalDate dateOfBirth) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;

@@ -49,23 +49,23 @@ public class WorldRecordSavingIT {
         assertEquals("Ben", record.getRecorderName());
     }
 
-//    @Test
-//    void test_DescriptionBlank() {
-//        WorldRecordCreateCommand inputCommand =
-//                new WorldRecordCreateCommand("", 5.78, "meter", LocalDate.of(2001, 11, 11), recorderId);
-//
-//        Problem problem = template.postForObject("/api/worldrecords", inputCommand, Problem.class);
-//        assertEquals(Status.BAD_REQUEST, problem.getStatus());
-//        assertEquals("must not be blank", (((List<Map<String, String>>) problem.getParameters().get("violations")).get(0)).get("message"));
-//    }
-//
-//    @Test
-//    void test_InvalidRecorder() {
-//        WorldRecordCreateCommand inputCommand =
-//                new WorldRecordCreateCommand("Largest pizza", 5.78, "meter", LocalDate.of(2001, 11, 11), recorderId + 1);
-//
-//        Problem problem = template.postForObject("/api/worldrecords", inputCommand, Problem.class);
-//        assertEquals(Status.NOT_FOUND, problem.getStatus());
-//        assertEquals("Recorder not found", problem.getTitle());
-//    }
+    @Test
+    void test_DescriptionBlank() {
+        WorldRecordCreateCommand inputCommand =
+                new WorldRecordCreateCommand("", 5.78, "meter", LocalDate.of(2001, 11, 11), recorderId);
+
+        Problem problem = template.postForObject("/api/worldrecords", inputCommand, Problem.class);
+        assertEquals(Status.BAD_REQUEST, problem.getStatus());
+        assertEquals("must not be blank", (((List<Map<String, String>>) problem.getParameters().get("violations")).get(0)).get("message"));
+    }
+
+    @Test
+    void test_InvalidRecorder() {
+        WorldRecordCreateCommand inputCommand =
+                new WorldRecordCreateCommand("Largest pizza", 5.78, "meter", LocalDate.of(2001, 11, 11), recorderId + 1);
+
+        Problem problem = template.postForObject("/api/worldrecords", inputCommand, Problem.class);
+        assertEquals(Status.NOT_FOUND, problem.getStatus());
+        assertEquals("Recorder not found", problem.getTitle());
+    }
 }
